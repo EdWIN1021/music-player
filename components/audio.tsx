@@ -55,7 +55,10 @@ const Audio: React.FC<AudioProps> = ({
       {fileNames.length > 0 && (
         <>
           <audio controls ref={audioRef} preload="none" onEnded={handleEnded}>
-            <source src={`music/${fileNames[trackIndex]}`} type="audio/mp3" />
+            <source
+              src={`music/${fileNames[trackIndex]}.mp3`}
+              type="audio/mp3"
+            />
           </audio>
           <button onClick={handlePlayPause}>
             {isPlaying ? "Pause" : "Play"}
