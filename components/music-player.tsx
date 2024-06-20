@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import PlayList from "./play-list";
 import Audio from "./audio";
 import MusicController from "./music-controller";
+import { Separator } from "./ui/separator";
 
 interface MusicPlayerProps {
   fileNames: string[];
@@ -26,6 +27,8 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ fileNames }) => {
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
       />
+
+      <Separator />
       <MusicController />
     </div>
   );
