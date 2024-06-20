@@ -2,14 +2,22 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-interface AudioPlayerProps {
+interface AudioProps {
   fileNames: string[];
+  trackIndex: number;
+  setTrackIndex: React.Dispatch<React.SetStateAction<number>>;
+  isPlaying: boolean;
+  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ fileNames }) => {
+const Audio: React.FC<AudioProps> = ({
+  fileNames,
+  trackIndex,
+  setTrackIndex,
+  isPlaying,
+  setIsPlaying,
+}) => {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [trackIndex, setTrackIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -58,4 +66,4 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ fileNames }) => {
   );
 };
 
-export default AudioPlayer;
+export default Audio;
