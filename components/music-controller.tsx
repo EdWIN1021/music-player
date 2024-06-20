@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useRef } from "react";
+import React, { FC, useContext, useEffect, useRef, useState } from "react";
 import { Play, Pause, ArrowRightToLine, ArrowLeftToLine } from "lucide-react";
 import { MusicContext } from "@/music-provider";
 import { Slider } from "./ui/slider";
@@ -9,6 +9,10 @@ interface MusicControllerProps {
 
 const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const seekBarRef = useRef<HTMLInputElement>(null);
+  const [volume, setVolume] = useState<number>(1);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(0);
   const { isPlaying, setIsPlaying, trackIndex, setTrackIndex } =
     useContext(MusicContext);
 
@@ -25,12 +29,39 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
     }
   }, [trackIndex, isPlaying]);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const updateTime = () => {
+      setCurrentTime(audio.currentTime);
+      if (seekBarRef.current && audio.duration) {
+        seekBarRef.current.value = (
+          (audio.currentTime / audio.duration) *
+          100
+        ).toString();
+      }
+    };
+
+    const updateDuration = () => {
+      setDuration(audio.duration);
+    };
+
+    audio.addEventListener("timeupdate", updateTime);
+    audio.addEventListener("loadedmetadata", updateDuration);
+
+    return () => {
+      audio.removeEventListener("timeupdate", updateTime);
+      audio.removeEventListener("loadedmetadata", updateDuration);
+    };
+  }, []);
+
   const handleEnded = () => {
     setTrackIndex((prev) => (prev + 1) % fileNames.length);
   };
 
   const handlePrevious = () => {
-    setTrackIndex((prev) => (prev - 1) % fileNames.length);
+    setTrackIndex((prev) => (prev - 1 + fileNames.length) % fileNames.length);
   };
 
   const handleNext = () => {
@@ -48,6 +79,24 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
         });
       }
       setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const seekTime = (audio.duration / 100) * parseFloat(e.target.value);
+    setCurrentTime(seekTime);
+    audio.currentTime = seekTime;
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const audio = audioRef.current;
+    if (audio) {
+      const newVolume = parseFloat(e.target.value);
+      setVolume(newVolume);
+      audio.volume = newVolume;
     }
   };
 
@@ -76,7 +125,7 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
           </span>
         </div>
 
-        <div className="flex flex-col items-center py-2 gap-2  flex-1">
+        <div className="flex flex-col items-center py-2 gap-2 flex-1">
           <div className="flex justify-center items-center">
             <div className="flex gap-5 items-center">
               <ArrowLeftToLine
@@ -88,7 +137,7 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
                 onClick={handlePlayPause}
               >
                 {isPlaying ? (
-                  <Pause className="fill-slate-950 stroke-slate-200 " />
+                  <Pause className="fill-slate-950 stroke-slate-200" />
                 ) : (
                   <Play className="fill-slate-950 stroke-slate-200" />
                 )}
@@ -100,7 +149,23 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
             </div>
           </div>
 
-          <Slider className="w-1/2" />
+          <input
+            className="h-1 w-1/2"
+            type="range"
+            ref={seekBarRef}
+            defaultValue={0}
+            max="100"
+            onChange={handleSeekChange}
+          />
+          {/* <input
+            className="h-1 w-1/2"
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+          /> */}
         </div>
 
         <div></div>
