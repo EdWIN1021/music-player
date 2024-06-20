@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import PlayList from "./play-list";
 import Audio from "./audio";
+import MusicController from "./music-controller";
 
 interface MusicPlayerProps {
   fileNames: string[];
@@ -12,7 +13,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ fileNames }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div>
+    <div className="flex flex-col h-[100vh]">
       <PlayList
         fileNames={fileNames}
         setTrackIndex={setTrackIndex}
@@ -25,6 +26,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ fileNames }) => {
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
       />
+      <MusicController />
     </div>
   );
 };

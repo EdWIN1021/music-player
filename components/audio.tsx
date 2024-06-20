@@ -51,7 +51,7 @@ const Audio: React.FC<AudioProps> = ({
   };
 
   return (
-    <div>
+    <div className="hidden">
       {fileNames.length > 0 && (
         <>
           <audio controls ref={audioRef} preload="none" onEnded={handleEnded}>
