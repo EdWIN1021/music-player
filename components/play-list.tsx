@@ -10,11 +10,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-interface SongsProps {
+interface PlayListProps {
   fileNames: string[];
 }
 
-const Songs: React.FC<SongsProps> = ({ fileNames }) => {
+const PlayList: React.FC<PlayListProps> = ({ fileNames }) => {
   return (
     <Table>
       <TableHeader>
@@ -37,4 +37,4 @@ const Songs: React.FC<SongsProps> = ({ fileNames }) => {
   );
 };
 
-export default Songs;
+export default PlayList;
