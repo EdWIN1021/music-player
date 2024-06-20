@@ -28,6 +28,14 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
     setTrackIndex((prev) => (prev + 1) % fileNames.length);
   };
 
+  const handlePrevious = () => {
+    setTrackIndex((prev) => (prev - 1) % fileNames.length);
+  };
+
+  const handleNext = () => {
+    setTrackIndex((prev) => (prev + 1) % fileNames.length);
+  };
+
   const handlePlayPause = () => {
     const audio = audioRef.current;
     if (audio) {
@@ -58,7 +66,10 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
       </div>
       <div className="flex justify-center p-2 ">
         <div className="flex gap-5 items-center">
-          <ArrowLeftToLine />
+          <ArrowLeftToLine
+            className="cursor-pointer"
+            onClick={handlePrevious}
+          />
           <div
             className="border rounded-full p-1.5 border-slate-950 cursor-pointer"
             onClick={handlePlayPause}
@@ -69,7 +80,7 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
               <Play className="fill-slate-950 stroke-none" />
             )}
           </div>
-          <ArrowRightToLine />
+          <ArrowRightToLine className="cursor-pointer" onClick={handleNext} />
         </div>
       </div>
     </>
