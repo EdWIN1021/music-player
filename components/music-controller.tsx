@@ -1,19 +1,78 @@
-import React from "react";
-import { Play, ArrowRightToLine, ArrowLeftToLine } from "lucide-react";
+import React, { FC, useContext, useEffect, useRef } from "react";
+import { Play, Pause, ArrowRightToLine, ArrowLeftToLine } from "lucide-react";
+import { MusicContext } from "@/music-provider";
 
-const MusicController = () => {
+interface MusicControllerProps {
+  fileNames: string[];
+}
+
+const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const { isPlaying, setIsPlaying, trackIndex, setTrackIndex } =
+    useContext(MusicContext);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.pause();
+      audio.load();
+      if (isPlaying) {
+        audio.play().catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+      }
+    }
+  }, [trackIndex, isPlaying]);
+
+  const handleEnded = () => {
+    setTrackIndex((prev) => (prev + 1) % fileNames.length);
+  };
+
+  const handlePlayPause = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play().catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
-    <div className="flex justify-center p-2 ">
-      <div className="flex gap-5 items-center">
-        <ArrowLeftToLine />
-
-        <div className="border rounded-full p-1.5 border-slate-950 cursor-pointer">
-          <Play className="fill-slate-950 stroke-none" />
-        </div>
-        
-        <ArrowRightToLine />
+    <>
+      <div className="hidden">
+        {fileNames.length > 0 && (
+          <>
+            <audio controls ref={audioRef} preload="none" onEnded={handleEnded}>
+              <source
+                src={`music/${fileNames[trackIndex]}.mp3`}
+                type="audio/mp3"
+              />
+            </audio>
+          </>
+        )}
       </div>
-    </div>
+      <div className="flex justify-center p-2 ">
+        <div className="flex gap-5 items-center">
+          <ArrowLeftToLine />
+          <div
+            className="border rounded-full p-1.5 border-slate-950 cursor-pointer"
+            onClick={handlePlayPause}
+          >
+            {isPlaying ? (
+              <Pause className="fill-slate-950 stroke-none" />
+            ) : (
+              <Play className="fill-slate-950 stroke-none" />
+            )}
+          </div>
+          <ArrowRightToLine />
+        </div>
+      </div>
+    </>
   );
 };
 
