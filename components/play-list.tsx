@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Dispatch, FC, SetStateAction } from "react";
+import React, { Dispatch, FC, SetStateAction, useContext } from "react";
 import {
   Table,
   TableBody,
@@ -9,18 +9,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { MusicContext } from "@/music-provider";
 
 interface PlayListProps {
   fileNames: string[];
-  setTrackIndex: Dispatch<SetStateAction<number>>;
-  setIsPlaying: Dispatch<SetStateAction<boolean>>;
 }
 
-const PlayList: FC<PlayListProps> = ({
-  fileNames,
-  setTrackIndex,
-  setIsPlaying,
-}) => {
+const PlayList: FC<PlayListProps> = ({ fileNames }) => {
+  const { setIsPlaying, setTrackIndex } = useContext(MusicContext);
+
   const handleClick = (index: number) => {
     setIsPlaying(true);
     setTrackIndex(index);
@@ -44,8 +41,8 @@ const PlayList: FC<PlayListProps> = ({
               onClick={() => handleClick(index)}
             >
               <TableCell>{index + 1}</TableCell>
-              <TableCell>{song.split("-")[0]}</TableCell>
-              <TableCell>{song.split("-")[1]}</TableCell>
+              <TableCell>{song.split("_")[0]}</TableCell>
+              <TableCell>{song.split("_")[1]}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -1,23 +1,16 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { MusicContext } from "@/music-provider";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 interface AudioProps {
   fileNames: string[];
-  trackIndex: number;
-  setTrackIndex: React.Dispatch<React.SetStateAction<number>>;
-  isPlaying: boolean;
-  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Audio: React.FC<AudioProps> = ({
-  fileNames,
-  trackIndex,
-  setTrackIndex,
-  isPlaying,
-  setIsPlaying,
-}) => {
+const Audio: React.FC<AudioProps> = ({ fileNames }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const { isPlaying, setIsPlaying, trackIndex, setTrackIndex } =
+    useContext(MusicContext);
 
   useEffect(() => {
     const audio = audioRef.current;
