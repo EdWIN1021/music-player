@@ -64,24 +64,29 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
           </>
         )}
       </div>
-      <div className="flex justify-center p-2 ">
-        <div className="flex gap-5 items-center">
-          <ArrowLeftToLine
-            className="cursor-pointer"
-            onClick={handlePrevious}
-          />
-          <div
-            className="border rounded-full p-1.5 border-slate-950 cursor-pointer"
-            onClick={handlePlayPause}
-          >
-            {isPlaying ? (
-              <Pause className="fill-slate-950 stroke-none" />
-            ) : (
-              <Play className="fill-slate-950 stroke-none" />
-            )}
+
+      <div className="flex flex-col items-center p-3 gap-2">
+        <div className="flex justify-center">
+          <div className="flex gap-5 items-center">
+            <ArrowLeftToLine
+              className="cursor-pointer"
+              onClick={handlePrevious}
+            />
+            <div
+              className="border rounded-full p-1.5 border-slate-950 cursor-pointer"
+              onClick={handlePlayPause}
+            >
+              {isPlaying ? (
+                <Pause className="fill-slate-950 stroke-none" />
+              ) : (
+                <Play className="fill-slate-950 stroke-none" />
+              )}
+            </div>
+            <ArrowRightToLine className="cursor-pointer" onClick={handleNext} />
           </div>
-          <ArrowRightToLine className="cursor-pointer" onClick={handleNext} />
         </div>
+
+        <input className="w-[700px]" type="range" />
       </div>
     </>
   );
