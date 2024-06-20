@@ -10,7 +10,7 @@ interface MusicPlayerProps {
 }
 const MusicPlayer: React.FC<MusicPlayerProps> = ({ fileNames }) => {
   return (
-    <div className="flex flex-col max-h-[100vh]">
+    <div className="flex flex-col h-[100vh]">
       <PlayList fileNames={fileNames} />
       <Separator />
       <MusicController fileNames={fileNames} />

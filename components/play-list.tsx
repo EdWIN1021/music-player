@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { MusicContext } from "@/music-provider";
+import { ScrollArea } from "./ui/scroll-area";
 
 interface PlayListProps {
   fileNames: string[];
@@ -24,8 +25,8 @@ const PlayList: FC<PlayListProps> = ({ fileNames }) => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto">
-      <Table>
+    <ScrollArea className="rounded-md border">
+      <Table className="">
         <TableHeader>
           <TableRow>
             <TableHead>#</TableHead>
@@ -47,7 +48,7 @@ const PlayList: FC<PlayListProps> = ({ fileNames }) => {
           ))}
         </TableBody>
       </Table>
-    </div>
+    </ScrollArea>
   );
 };
 

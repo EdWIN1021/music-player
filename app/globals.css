@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  box-sizing: border-box;
+  /* overflow: hidden; */
 }
 
 @layer base {
