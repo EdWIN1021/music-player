@@ -1,6 +1,7 @@
 import React, { FC, useContext, useEffect, useRef } from "react";
 import { Play, Pause, ArrowRightToLine, ArrowLeftToLine } from "lucide-react";
 import { MusicContext } from "@/music-provider";
+import { Slider } from "./ui/slider";
 
 interface MusicControllerProps {
   fileNames: string[];
@@ -65,28 +66,44 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
         )}
       </div>
 
-      <div className="flex flex-col items-center p-3 gap-2">
-        <div className="flex justify-center">
-          <div className="flex gap-5 items-center">
-            <ArrowLeftToLine
-              className="cursor-pointer"
-              onClick={handlePrevious}
-            />
-            <div
-              className="border rounded-full p-1.5 border-slate-950 cursor-pointer"
-              onClick={handlePlayPause}
-            >
-              {isPlaying ? (
-                <Pause className="fill-slate-950 stroke-none" />
-              ) : (
-                <Play className="fill-slate-950 stroke-none" />
-              )}
-            </div>
-            <ArrowRightToLine className="cursor-pointer" onClick={handleNext} />
-          </div>
+      <div className="flex shadow-2xl bg-slate-950">
+        <div className="flex flex-col justify-center px-5">
+          <span className="text-md font-medium text-slate-200">
+            {fileNames[trackIndex].split("_")[0]}
+          </span>
+          <span className="text-sm text-gray-500">
+            {fileNames[trackIndex].split("_")[1]}
+          </span>
         </div>
 
-        <input className="w-[700px]" type="range" />
+        <div className="flex flex-col items-center py-2 gap-2  flex-1">
+          <div className="flex justify-center items-center">
+            <div className="flex gap-5 items-center">
+              <ArrowLeftToLine
+                className="cursor-pointer text-slate-200"
+                onClick={handlePrevious}
+              />
+              <div
+                className="border rounded-full p-1 border-slate-200 cursor-pointer shadow-2xl bg-[white]"
+                onClick={handlePlayPause}
+              >
+                {isPlaying ? (
+                  <Pause className="fill-slate-950 stroke-slate-200 " />
+                ) : (
+                  <Play className="fill-slate-950 stroke-slate-200" />
+                )}
+              </div>
+              <ArrowRightToLine
+                className="cursor-pointer text-slate-200"
+                onClick={handleNext}
+              />
+            </div>
+          </div>
+
+          <Slider className="w-1/2" />
+        </div>
+
+        <div></div>
       </div>
     </>
   );
