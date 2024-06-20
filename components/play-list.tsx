@@ -24,7 +24,7 @@ const PlayList: FC<PlayListProps> = ({ fileNames }) => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto">
+    <div className=" h-[calc(100vh-62px)] overflow-y-auto">
       <Table>
         <TableHeader>
           <TableRow>
