@@ -2,6 +2,7 @@
 
 import ytdl from "ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
+import { simpleGit, CleanOptions } from "simple-git";
 
 export async function youtubeToMp3(formData: FormData) {
   const url = formData.get("url");
@@ -31,6 +32,14 @@ export async function youtubeToMp3(formData: FormData) {
         console.error("Error during conversion:", err);
       })
       .save(outputFilePath);
+
+    const git = simpleGit();
+    git
+      .add(".")
+      .then(() => git.commit("update"))
+      .then(() => git.push())
+      .then(() => console.log("Pushed to remote repository successfully"))
+      .catch((err) => console.error("Failed: ", err));
   } catch (err) {
     console.log(err);
   }
