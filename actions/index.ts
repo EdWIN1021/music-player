@@ -1,7 +1,2 @@
-import fs from "fs";
-import path from "path";
-
-export function getFileNames() {
-  const publicFolderPath = path.join(process.cwd(), "public/music");
-  return fs.readdirSync(publicFolderPath).map((file) => file.split(".")[0]);
-}
+export { getSongNames } from "./get-song-names";
+export { youtubeToMp3 } from "./youtube-to-mp3";
