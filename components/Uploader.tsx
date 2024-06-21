@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "./ui/input";
 import * as actions from "@/actions";
+import { Label } from "@radix-ui/react-label";
 
 export function Uploader() {
   return (
@@ -25,7 +26,44 @@ export function Uploader() {
             <DialogDescription>Insert a YouTube video URL</DialogDescription>
           </DialogHeader>
 
-          <Input type="url" name="url" required />
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-5 items-center gap-4">
+              <Label htmlFor="title" className="text-right text-sm">
+                Title
+              </Label>
+              <Input
+                id="title"
+                name="title"
+                className="col-span-4 rounded"
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-5 items-center gap-4">
+              <Label htmlFor="artist" className="text-right text-sm">
+                Artist
+              </Label>
+              <Input
+                id="artist"
+                name="artist"
+                className="col-span-4  rounded"
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-5 items-center gap-4">
+              <Label htmlFor="url" className="text-right text-sm">
+                Url
+              </Label>
+              <Input
+                id="url"
+                type="url"
+                name="url"
+                className="col-span-4 rounded"
+                required
+              />
+            </div>
+          </div>
 
           <DialogFooter>
             <Button className="rounded-full mt-5" type="submit">
