@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Dispatch, FC, SetStateAction, useContext } from "react";
+import React, { FC, useContext } from "react";
 import {
   Table,
   TableBody,
@@ -10,7 +10,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { MusicContext } from "@/music-provider";
-import { ScrollArea } from "./ui/scroll-area";
 
 interface PlayListProps {
   fileNames: string[];
@@ -25,7 +24,7 @@ const PlayList: FC<PlayListProps> = ({ fileNames }) => {
   };
 
   return (
-    <div className="max-h-[calc(100vh-84px-78px-50px)] overflow-y-auto">
+    <div className="max-h-[calc(100vh-84px-78px-50px)] sm:max-h-[calc(100vh-78px-50px)] overflow-y-auto">
       <Table>
         <TableHeader>
           <TableRow>

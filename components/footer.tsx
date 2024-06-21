@@ -3,8 +3,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="flex justify-between pb-5 pt-4 px-10 w-full  sm:hidden">
-      <div className="flex flex-col items-center">
+    <div className="flex justify-between pb-5 pt-4 px-10 w-full  sm:hidden bg-slate-950 text-white">
+      <div className="flex flex-col items-center ">
         <Home />
         <span>Home</span>
       </div>
