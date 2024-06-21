@@ -22,24 +22,23 @@ export async function youtubeToMp3(formData: FormData) {
       console.error("Error downloading video:", err);
     });
 
-    await ffmpeg(videoStream)
+    ffmpeg(videoStream)
       .audioBitrate(128)
       .toFormat("mp3")
       .on("end", () => {
         console.log("Conversion complete!");
+        const git = simpleGit();
+        git
+          .add(".")
+          .then(() => git.commit("update"))
+          .then(() => git.push())
+          .then(() => console.log("Pushed to remote repository successfully"))
+          .catch((err) => console.error("Failed: ", err));
       })
       .on("error", (err: unknown) => {
         console.error("Error during conversion:", err);
       })
       .save(outputFilePath);
-
-    const git = simpleGit();
-    await git
-      .add(".")
-      .then(() => git.commit("update"))
-      .then(() => git.push())
-      .then(() => console.log("Pushed to remote repository successfully"))
-      .catch((err) => console.error("Failed: ", err));
   } catch (err) {
     console.log(err);
   }
