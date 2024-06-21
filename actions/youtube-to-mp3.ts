@@ -2,7 +2,8 @@
 
 import ytdl from "ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
-import { simpleGit, CleanOptions } from "simple-git";
+import { simpleGit } from "simple-git";
+import { revalidatePath } from "next/cache";
 
 export async function youtubeToMp3(formData: FormData) {
   const url = formData.get("url");
@@ -42,4 +43,6 @@ export async function youtubeToMp3(formData: FormData) {
   } catch (err) {
     console.log(err);
   }
+
+  revalidatePath("/");
 }
