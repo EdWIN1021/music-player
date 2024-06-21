@@ -22,7 +22,7 @@ export async function youtubeToMp3(formData: FormData) {
       console.error("Error downloading video:", err);
     });
 
-    ffmpeg(videoStream)
+    await ffmpeg(videoStream)
       .audioBitrate(128)
       .toFormat("mp3")
       .on("end", () => {
@@ -34,7 +34,7 @@ export async function youtubeToMp3(formData: FormData) {
       .save(outputFilePath);
 
     const git = simpleGit();
-    git
+    await git
       .add(".")
       .then(() => git.commit("update"))
       .then(() => git.push())
