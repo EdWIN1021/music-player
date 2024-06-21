@@ -25,8 +25,8 @@ const PlayList: FC<PlayListProps> = ({ fileNames }) => {
   };
 
   return (
-    <ScrollArea className="rounded-md border">
-      <Table className="">
+    <div className="max-h-[calc(100vh-84px-78px-50px)] overflow-y-auto">
+      <Table>
         <TableHeader>
           <TableRow>
             <TableHead>#</TableHead>
@@ -48,7 +48,7 @@ const PlayList: FC<PlayListProps> = ({ fileNames }) => {
           ))}
         </TableBody>
       </Table>
-    </ScrollArea>
+    </div>
   );
 };
 
