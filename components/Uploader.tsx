@@ -11,6 +11,7 @@ import {
 import { Input } from "./ui/input";
 import * as actions from "@/actions";
 import { Label } from "@radix-ui/react-label";
+import SubmitButton from "./submit-button";
 
 export function Uploader() {
   return (
@@ -67,9 +68,7 @@ export function Uploader() {
             </div>
 
             <DialogFooter>
-              <Button className="rounded-full mt-5" type="submit">
-                Convert
-              </Button>
+              <SubmitButton>Convert</SubmitButton>
             </DialogFooter>
           </form>
         </DialogContent>

@@ -46,9 +46,9 @@ export async function youtubeToMp3(formData: FormData) {
     await git.push();
 
     console.log("Pushed to remote repository successfully");
-
-    revalidatePath("/");
   } catch (err) {
     console.error("Error:", err);
   }
+
+  revalidatePath("/");
 }
