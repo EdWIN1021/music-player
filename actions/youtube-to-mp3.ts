@@ -4,45 +4,51 @@ import ytdl from "ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
 import { simpleGit } from "simple-git";
 import { revalidatePath } from "next/cache";
+import path from "path";
 
 export async function youtubeToMp3(formData: FormData) {
   const url = formData.get("url");
   const title = formData.get("title");
   const artist = formData.get("artist");
 
+  if (!url || !title || !artist) {
+    throw new Error("Missing required fields: url, title, or artist");
+  }
+
   const videoURL = String(url);
+  const ffmpegPath = path.join(process.cwd(), "ffmpeg");
+  ffmpeg.setFfmpegPath(ffmpegPath);
 
-  ffmpeg.setFfmpegPath("./ffmpeg");
-
-  const outputFilePath = `./public/music/${title}_${artist}.mp3`;
+  const outputFilePath = path.join(
+    process.cwd(),
+    "public",
+    "music",
+    `${title}_${artist}.mp3`
+  );
 
   const videoStream = ytdl(videoURL, { filter: "audioonly" });
 
   try {
-    videoStream.on("error", (err) => {
-      console.error("Error downloading video:", err);
+    await new Promise((resolve, reject) => {
+      ffmpeg(videoStream)
+        .audioBitrate(128)
+        .toFormat("mp3")
+        .on("end", resolve)
+        .on("error", reject)
+        .save(outputFilePath);
     });
 
-    ffmpeg(videoStream)
-      .audioBitrate(128)
-      .toFormat("mp3")
-      .on("end", () => {
-        console.log("Conversion complete!");
-        const git = simpleGit();
-        git
-          .add(".")
-          .then(() => git.commit("update"))
-          .then(() => git.push())
-          .then(() => console.log("Pushed to remote repository successfully"))
-          .catch((err) => console.error("Failed: ", err));
-      })
-      .on("error", (err: unknown) => {
-        console.error("Error during conversion:", err);
-      })
-      .save(outputFilePath);
-  } catch (err) {
-    console.log(err);
-  }
+    console.log("Conversion complete!");
 
-  revalidatePath("/");
+    const git = simpleGit();
+    await git.add(".");
+    await git.commit("update");
+    await git.push();
+
+    console.log("Pushed to remote repository successfully");
+
+    revalidatePath("/");
+  } catch (err) {
+    console.error("Error:", err);
+  }
 }
