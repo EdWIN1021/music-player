@@ -4,6 +4,8 @@ import {
   Pause,
   ArrowRightToLine,
   ArrowLeftToLine,
+  StepForward,
+  StepBack,
   Volume1,
 } from "lucide-react";
 import { MusicContext } from "@/music-provider";
@@ -120,36 +122,64 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
         )}
       </div>
 
-      <div className="flex flex-col shadow-2xl bg-slate-950 py-2">
-        <p className="text-center">
-          <span className="text-sm font-medium text-slate-200">
-            {fileNames[trackIndex].split("_")[0] + " - "}
-          </span>
+      <div>
+        <div className="m-5 rounded-lg shadow-md flex justify-between px-5 py-2">
+          <p className="sm:text-center ">
+            <span className="text-sm font-medium">
+              {fileNames[trackIndex].split("_")[0] + " - "}
+            </span>
 
-          <span className="text-xs text-gray-500">
-            {fileNames[trackIndex].split("_")[1]}
-          </span>
-        </p>
+            <span className="text-xs text-gray-500">
+              {fileNames[trackIndex].split("_")[1]}
+            </span>
+          </p>
+
+          <div className="flex items-center gap-5">
+            <StepBack
+              className="cursor-pointer fill-black"
+              onClick={handlePrevious}
+            />
+
+            <div
+              className="rounded-full p-1 cursor-pointer shadow-2xl "
+              onClick={handlePlayPause}
+            >
+              {isPlaying ? (
+                <Pause className="fill-black" />
+              ) : (
+                <Play className="fill-black" />
+              )}
+            </div>
+
+            <StepForward
+              className="cursor-pointer fill-black"
+              onClick={handleNext}
+            />
+          </div>
+        </div>
+
+        {/* 
 
         <div className="flex flex-col items-center py-2 gap-2 flex-1">
           <div className="flex justify-center items-center">
             <div className="flex gap-5 items-center">
               <ArrowLeftToLine
-                className="cursor-pointer text-slate-200"
+                className="cursor-pointer "
                 onClick={handlePrevious}
               />
               <div
-                className="border rounded-full p-1 border-slate-200 cursor-pointer shadow-2xl bg-[white]"
+                className="rounded-full p-1 cursor-pointer shadow-2xl "
                 onClick={handlePlayPause}
               >
                 {isPlaying ? (
-                  <Pause className="fill-slate-950 stroke-slate-200" />
+                  <Pause className="fill-black" />
                 ) : (
-                  <Play className="fill-slate-950 stroke-slate-200" />
+                  <Play className="fill-black" />
                 )}
               </div>
+
               <ArrowRightToLine
-                className="cursor-pointer text-slate-200"
+                className="cursor-pointer "
                 onClick={handleNext}
               />
             </div>
@@ -176,7 +206,7 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
             value={volume}
             onChange={handleVolumeChange}
           />
-        </div>
+        </div> */}
       </div>
     </>
   );
