@@ -14,64 +14,66 @@ import { Label } from "@radix-ui/react-label";
 
 export function Uploader() {
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button className="rounded-full">Upload</Button>
-      </DialogTrigger>
+    <div className="hidden sm:block">
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="rounded-full">Upload</Button>
+        </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
-        <form action={actions.youtubeToMp3}>
-          <DialogHeader>
-            <DialogTitle>Youtube to mp3</DialogTitle>
-            <DialogDescription>Insert a YouTube video URL</DialogDescription>
-          </DialogHeader>
+        <DialogContent className="sm:max-w-[425px]">
+          <form action={actions.youtubeToMp3}>
+            <DialogHeader>
+              <DialogTitle>Youtube to mp3</DialogTitle>
+              <DialogDescription>Insert a YouTube video URL</DialogDescription>
+            </DialogHeader>
 
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-5 items-center gap-4">
-              <Label htmlFor="title" className="text-right text-sm">
-                Title
-              </Label>
-              <Input
-                id="title"
-                name="title"
-                className="col-span-4 rounded"
-                required
-              />
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-5 items-center gap-4">
+                <Label htmlFor="title" className="text-right text-sm">
+                  Title
+                </Label>
+                <Input
+                  id="title"
+                  name="title"
+                  className="col-span-4 rounded"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-5 items-center gap-4">
+                <Label htmlFor="artist" className="text-right text-sm">
+                  Artist
+                </Label>
+                <Input
+                  id="artist"
+                  name="artist"
+                  className="col-span-4  rounded"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-5 items-center gap-4">
+                <Label htmlFor="url" className="text-right text-sm">
+                  Url
+                </Label>
+                <Input
+                  id="url"
+                  type="url"
+                  name="url"
+                  className="col-span-4 rounded"
+                  required
+                />
+              </div>
             </div>
 
-            <div className="grid grid-cols-5 items-center gap-4">
-              <Label htmlFor="artist" className="text-right text-sm">
-                Artist
-              </Label>
-              <Input
-                id="artist"
-                name="artist"
-                className="col-span-4  rounded"
-                required
-              />
-            </div>
-
-            <div className="grid grid-cols-5 items-center gap-4">
-              <Label htmlFor="url" className="text-right text-sm">
-                Url
-              </Label>
-              <Input
-                id="url"
-                type="url"
-                name="url"
-                className="col-span-4 rounded"
-                required
-              />
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button className="rounded-full mt-5" type="submit">
-              Convert
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
+            <DialogFooter>
+              <Button className="rounded-full mt-5" type="submit">
+                Convert
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }
