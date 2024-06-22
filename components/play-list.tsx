@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { MusicContext } from "@/music-provider";
+import { Ellipsis } from "lucide-react";
 
 interface PlayListProps {
   fileNames: string[];
@@ -31,6 +32,7 @@ const PlayList: FC<PlayListProps> = ({ fileNames }) => {
             <TableHead>#</TableHead>
             <TableHead>Title</TableHead>
             <TableHead>Artist</TableHead>
+            <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -43,6 +45,9 @@ const PlayList: FC<PlayListProps> = ({ fileNames }) => {
               <TableCell>{index + 1}</TableCell>
               <TableCell>{song.split("_")[0]}</TableCell>
               <TableCell>{song.split("_")[1]}</TableCell>
+              <TableCell>
+                <Ellipsis />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

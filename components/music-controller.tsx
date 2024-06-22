@@ -123,7 +123,7 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
       </div>
 
       <div className="flex flex-col justify-center">
-        <div className="mx-8 my-4 rounded-xl shadow-md flex justify-between px-5 py-5">
+        <div className="mx-8 my-5 rounded-xl shadow-md flex justify-between px-5 py-5">
           <p className="sm:text-center flex items-center">
             <span className="text-sm font-medium">
               {fileNames[trackIndex].split("_")[0] + " - "}
