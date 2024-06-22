@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import MusicProvider from "@/music-provider";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import clsx from "clsx";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Music Player",
@@ -25,7 +26,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className="h-[100vh] flex flex-col">
+      <body className={clsx(`h-[100vh] flex flex-col`, nunito.className)}>
         <MusicProvider>
           <Header />
           <div className="flex-1">{children}</div>
