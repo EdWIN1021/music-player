@@ -27,14 +27,6 @@ const PlayList: FC<PlayListProps> = ({ fileNames }) => {
   return (
     <div className="max-h-[calc(100vh-88px-103px-84px)] sm:max-h-[calc(100vh-88px-103px)]  overflow-y-auto">
       <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>#</TableHead>
-            <TableHead>Title</TableHead>
-            <TableHead>Artist</TableHead>
-            <TableHead></TableHead>
-          </TableRow>
-        </TableHeader>
         <TableBody>
           {fileNames.map((song, index) => (
             <TableRow
@@ -42,7 +34,6 @@ const PlayList: FC<PlayListProps> = ({ fileNames }) => {
               className="cursor-pointer"
               onClick={() => handleClick(index)}
             >
-              <TableCell>{index + 1}</TableCell>
               <TableCell>{song.split("_")[0]}</TableCell>
               <TableCell>{song.split("_")[1]}</TableCell>
               <TableCell>
