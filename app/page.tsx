@@ -2,7 +2,10 @@ import * as actions from "@/actions";
 import MusicPlayer from "@/components/music-player";
 
 export default async function Home() {
-  const fileNames = await actions.getSongNames();
+  const response = await fetch(
+    "https://api.github.com/repos/EdWIN1021/muisc/contents"
+  );
+  const songs = await response.json();
 
-  return <MusicPlayer fileNames={fileNames} />;
+  return <MusicPlayer songs={songs} />;
 }

@@ -13,10 +13,10 @@ import { MusicContext } from "@/music-provider";
 import { Ellipsis } from "lucide-react";
 
 interface PlayListProps {
-  fileNames: string[];
+  songs: Song[];
 }
 
-const PlayList: FC<PlayListProps> = ({ fileNames }) => {
+const PlayList: FC<PlayListProps> = ({ songs }) => {
   const { setIsPlaying, setTrackIndex } = useContext(MusicContext);
 
   const handleClick = (index: number) => {
@@ -28,14 +28,14 @@ const PlayList: FC<PlayListProps> = ({ fileNames }) => {
     <div className="max-h-[calc(100vh-88px-103px-84px)] sm:max-h-[calc(100vh-88px-103px)]  overflow-y-auto">
       <Table>
         <TableBody>
-          {fileNames.map((song, index) => (
+          {songs.map((song, index) => (
             <TableRow
               key={index}
               className="cursor-pointer"
               onClick={() => handleClick(index)}
             >
-              <TableCell>{song.split("_")[0]}</TableCell>
-              <TableCell>{song.split("_")[1]}</TableCell>
+              <TableCell>{song.name.split("_")[0]}</TableCell>
+              <TableCell>{song.name.split("_")[1]}</TableCell>
               <TableCell>
                 <Ellipsis />
               </TableCell>

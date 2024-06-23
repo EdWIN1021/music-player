@@ -11,10 +11,10 @@ import {
 import { MusicContext } from "@/music-provider";
 
 interface MusicControllerProps {
-  fileNames: string[];
+  songs: Song[];
 }
 
-const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
+const MusicController: FC<MusicControllerProps> = ({ songs }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const seekBarRef = useRef<HTMLInputElement>(null);
   const [volume, setVolume] = useState<number>(1);
@@ -35,6 +35,8 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
       }
     }
   }, [trackIndex, isPlaying]);
+
+  console.log(songs[trackIndex].download_url);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -64,15 +66,15 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
   }, []);
 
   const handleEnded = () => {
-    setTrackIndex((prev) => (prev + 1) % fileNames.length);
+    setTrackIndex((prev) => (prev + 1) % songs.length);
   };
 
   const handlePrevious = () => {
-    setTrackIndex((prev) => (prev - 1 + fileNames.length) % fileNames.length);
+    setTrackIndex((prev) => (prev - 1 + songs.length) % songs.length);
   };
 
   const handleNext = () => {
-    setTrackIndex((prev) => (prev + 1) % fileNames.length);
+    setTrackIndex((prev) => (prev + 1) % songs.length);
   };
 
   const handlePlayPause = () => {
@@ -110,13 +112,10 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
   return (
     <>
       <div className="hidden">
-        {fileNames.length > 0 && (
+        {songs.length > 0 && (
           <>
             <audio controls ref={audioRef} preload="none" onEnded={handleEnded}>
-              <source
-                src={`/Users/edwin/Desktop/music/${fileNames[trackIndex]}.mp3`}
-                type="audio/mp3"
-              />
+              <source src={songs[trackIndex].download_url} type="audio/mp3" />
             </audio>
           </>
         )}
@@ -126,11 +125,11 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
         <div className="mx-8 my-5 rounded-xl shadow-[0_2px_15px_-1px_rgba(0,0,0,0.1)] flex justify-between px-5 py-5">
           <p className="sm:text-center flex items-center">
             <span className="text-sm font-medium">
-              {fileNames[trackIndex].split("_")[0] + " - "}
+              {songs[trackIndex].name.split("_")[0] + " - "}
             </span>
 
             <span className="text-xs text-gray-500">
-              {fileNames[trackIndex].split("_")[1]}
+              {songs[trackIndex].name.split("_")[1]}
             </span>
           </p>
 

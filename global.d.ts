@@ -10,3 +10,8 @@ declare namespace JSX {
     };
   }
 }
+
+interface Song {
+  name: string;
+  download_url: string;
+}
