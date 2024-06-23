@@ -114,7 +114,7 @@ const MusicController: FC<MusicControllerProps> = ({ fileNames }) => {
           <>
             <audio controls ref={audioRef} preload="none" onEnded={handleEnded}>
               <source
-                src={`music/${fileNames[trackIndex]}.mp3`}
+                src={`/Users/edwin/Desktop/music/${fileNames[trackIndex]}.mp3`}
                 type="audio/mp3"
               />
             </audio>

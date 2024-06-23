@@ -2,7 +2,6 @@
 
 import ytdl from "ytdl-core";
 import ffmpeg from "fluent-ffmpeg";
-import { simpleGit } from "simple-git";
 import { revalidatePath } from "next/cache";
 import path from "path";
 
@@ -39,13 +38,6 @@ export async function youtubeToMp3(formData: FormData) {
     });
 
     console.log("Conversion complete!");
-
-    const git = simpleGit();
-    await git.add(".");
-    await git.commit("update");
-    await git.push();
-
-    console.log("Pushed to remote repository successfully");
   } catch (err) {
     console.error("Error:", err);
   }
