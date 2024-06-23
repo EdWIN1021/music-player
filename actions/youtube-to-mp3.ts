@@ -32,7 +32,7 @@ export async function youtubeToMp3(formData: FormData) {
     process.cwd(),
     "public",
     "music",
-    `${title}_${artist}.mp3`
+    `output.mp3`
   );
 
   const videoStream = ytdl(videoURL, { filter: "audioonly" });
