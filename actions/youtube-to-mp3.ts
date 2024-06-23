@@ -28,12 +28,7 @@ export async function youtubeToMp3(formData: FormData) {
   const ffmpegPath = path.join(process.cwd(), "ffmpeg");
   ffmpeg.setFfmpegPath(ffmpegPath);
 
-  const outputFilePath = path.join(
-    process.cwd(),
-    "public",
-    "music",
-    `output.mp3`
-  );
+  const outputFilePath = path.join(process.cwd(), "public", `output.mp3`);
 
   const videoStream = ytdl(videoURL, { filter: "audioonly" });
 
