@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,8 +14,13 @@ import { Input } from "./ui/input";
 import * as actions from "@/actions";
 import { Label } from "@radix-ui/react-label";
 import SubmitButton from "./submit-button";
+import { useFormState } from "react-dom";
 
 export default function Uploader() {
+  const [formState, action] = useFormState(actions.youtubeToMp3, {
+    errors: {},
+  });
+
   return (
     <div className="hidden sm:block">
       <Dialog>
@@ -22,7 +29,7 @@ export default function Uploader() {
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[425px]">
-          <form action={actions.youtubeToMp3}>
+          <form action={action}>
             <DialogHeader>
               <DialogTitle>Youtube to mp3</DialogTitle>
               <DialogDescription>Insert a YouTube video URL</DialogDescription>

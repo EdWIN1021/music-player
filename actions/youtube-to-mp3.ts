@@ -5,6 +5,7 @@ import ffmpeg from "fluent-ffmpeg";
 import { revalidatePath } from "next/cache";
 import path from "path";
 import fs from "fs";
+import { error } from "console";
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_USERNAME = "EdWIN1021";
@@ -15,7 +16,16 @@ if (!GITHUB_TOKEN) {
   throw new Error("GitHub token is not set in the environment variables.");
 }
 
-export async function youtubeToMp3(formData: FormData) {
+interface YoutubeToMp3FormState {
+  errors: {
+    content?: string[];
+  };
+}
+
+export async function youtubeToMp3(
+  formState: YoutubeToMp3FormState,
+  formData: FormData
+) {
   const url = formData.get("url");
   const title = formData.get("title");
   const artist = formData.get("artist");
@@ -89,12 +99,12 @@ export async function youtubeToMp3(formData: FormData) {
         `Failed to upload file to GitHub: ${uploadResponse.statusText}`
       );
     }
-
-    console.log("File uploaded to GitHub!");
   } catch (err) {
     console.error("Error:", err);
     throw new Error("Conversion and upload failed. Please try again.");
   }
 
   revalidatePath("/");
+
+  return { errors: {} };
 }
