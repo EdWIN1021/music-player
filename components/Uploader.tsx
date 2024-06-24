@@ -15,21 +15,32 @@ import * as actions from "@/actions";
 import { Label } from "@radix-ui/react-label";
 import SubmitButton from "./submit-button";
 import { useFormState } from "react-dom";
+import { useEffect, useRef, useState } from "react";
 
 export default function Uploader() {
+  const [open, toggle] = useState(false);
+  const ref = useRef<HTMLFormElement | null>(null);
   const [formState, action] = useFormState(actions.youtubeToMp3, {
     errors: {},
+    success: false,
   });
+
+  useEffect(() => {
+    if (formState.success) {
+      ref.current?.reset();
+      toggle(false);
+    }
+  }, [formState]);
 
   return (
     <div className="hidden sm:block">
-      <Dialog>
+      <Dialog open={open} onOpenChange={() => toggle((open) => !open)}>
         <DialogTrigger asChild>
           <Button className="rounded-full">Upload</Button>
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[425px]">
-          <form action={action}>
+          <form action={action} ref={ref}>
             <DialogHeader>
               <DialogTitle>Youtube to mp3</DialogTitle>
               <DialogDescription>Insert a YouTube video URL</DialogDescription>

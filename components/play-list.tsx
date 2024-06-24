@@ -25,7 +25,7 @@ const PlayList: FC<PlayListProps> = ({ songs }) => {
   };
 
   return (
-    <div className="max-h-[calc(100vh-88px-103px-84px)] sm:max-h-[calc(100vh-88px-103px)]  overflow-y-auto">
+    <div className="max-h-[calc(100vh-88px-103px-84px)] sm:max-h-[calc(100vh-88px-103px)] overflow-y-auto">
       <Table>
         <TableBody>
           {songs.map((song, index) => (
@@ -35,7 +35,7 @@ const PlayList: FC<PlayListProps> = ({ songs }) => {
               onClick={() => handleClick(index)}
             >
               <TableCell>{song.name.split("_")[0]}</TableCell>
-              <TableCell>{song.name.split("_")[1]}</TableCell>
+              <TableCell>{song.name.split("_")[1].split(".")[0]}</TableCell>
               <TableCell>
                 <Ellipsis />
               </TableCell>

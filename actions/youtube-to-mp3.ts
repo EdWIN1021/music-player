@@ -20,6 +20,7 @@ interface YoutubeToMp3FormState {
   errors: {
     content?: string[];
   };
+  success?: boolean;
 }
 
 export async function youtubeToMp3(
@@ -106,5 +107,5 @@ export async function youtubeToMp3(
 
   revalidatePath("/");
 
-  return { errors: {} };
+  return { errors: {}, success: true };
 }
