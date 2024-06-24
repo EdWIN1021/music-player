@@ -34,7 +34,7 @@ export async function youtubeToMp3(
   }
 
   const videoURL = String(url);
-  const ffmpegPath = path.join(process.cwd(), "public", "ffmpeg");
+  const ffmpegPath = path.join(process.cwd(), "bin", "ffmpeg");
   ffmpeg.setFfmpegPath(ffmpegPath);
 
   const outputFilePath = path.join(process.cwd(), "public", `output.mp3`);
