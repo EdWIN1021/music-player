@@ -13,7 +13,7 @@ import * as actions from "@/actions";
 import { Label } from "@radix-ui/react-label";
 import SubmitButton from "./submit-button";
 
-export function Uploader() {
+export default function Uploader() {
   return (
     <div className="hidden sm:block">
       <Dialog>

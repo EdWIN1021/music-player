@@ -1,6 +1,5 @@
 import { Home, Search, CloudUpload } from "lucide-react";
 import React from "react";
-import UploadDrawer from "./UploadDrawer";
 
 const Footer = () => {
   return (
@@ -17,7 +16,7 @@ const Footer = () => {
 
       <div className="flex flex-col items-center">
         <CloudUpload />
-        <UploadDrawer />
+        <span>Upload</span>
       </div>
     </div>
   );
