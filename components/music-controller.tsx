@@ -23,9 +23,7 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
       audio.pause();
       audio.load();
       if (isPlaying) {
-        audio.play().catch((error) => {
-          console.error("Error playing audio:", error);
-        });
+        audio.play();
       }
     }
   }, [trackIndex, isPlaying]);
@@ -83,9 +81,7 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
       if (isPlaying) {
         audio.pause();
       } else {
-        audio.play().catch((error) => {
-          console.error("Error playing audio:", error);
-        });
+        audio.play();
       }
       setIsPlaying(!isPlaying);
     }

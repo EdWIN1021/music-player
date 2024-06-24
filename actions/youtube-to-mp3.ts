@@ -5,11 +5,9 @@ import ffmpeg from "fluent-ffmpeg";
 import { revalidatePath } from "next/cache";
 import path from "path";
 import fs from "fs";
-import { error } from "console";
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const GITHUB_USERNAME = "EdWIN1021";
-const GITHUB_REPO = "music";
+
 const GITHUB_BRANCH = "main";
 
 if (!GITHUB_TOKEN) {
