@@ -1,6 +1,7 @@
 import React, { FC, useContext, useEffect, useRef, useState } from "react";
-import { Play, Pause, StepForward, StepBack } from "lucide-react";
+import { Play, Pause, StepForward, StepBack, Shuffle } from "lucide-react";
 import { MusicContext } from "@/music-provider";
+import clsx from "clsx";
 
 interface MusicControllerProps {
   songs: Song[];
@@ -13,6 +14,8 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
   const [duration, setDuration] = useState<number>(0);
   const { isPlaying, setIsPlaying, trackIndex, setTrackIndex } =
     useContext(MusicContext);
+
+  const [isShuffle, setIsShuffle] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -59,11 +62,19 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
   };
 
   const handlePrevious = () => {
-    setTrackIndex((prev) => (prev - 1 + songs.length) % songs.length);
+    if (isShuffle) {
+      setTrackIndex(Math.floor(Math.random() * (songs.length + 1)));
+    } else {
+      setTrackIndex((prev) => (prev - 1 + songs.length) % songs.length);
+    }
   };
 
   const handleNext = () => {
-    setTrackIndex((prev) => (prev + 1) % songs.length);
+    if (isShuffle) {
+      setTrackIndex(Math.floor(Math.random() * (songs.length + 1)));
+    } else {
+      setTrackIndex((prev) => (prev + 1) % songs.length);
+    }
   };
 
   const handlePlayPause = () => {
@@ -136,6 +147,13 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
               </div>
 
               <div className="flex items-center gap-5">
+                <Shuffle
+                  className={clsx("cursor-pointer ", {
+                    "text-[#2563EB]": isShuffle,
+                  })}
+                  size={15}
+                  onClick={() => setIsShuffle((value) => !value)}
+                />
                 <StepBack
                   className="cursor-pointer fill-black"
                   onClick={handlePrevious}
