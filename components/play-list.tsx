@@ -1,16 +1,10 @@
 "use client";
 
 import React, { FC, useContext } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { MusicContext } from "@/music-provider";
 import { Ellipsis } from "lucide-react";
+import SongOptions from "./song-options";
 
 interface PlayListProps {
   songs: Song[];
@@ -37,7 +31,7 @@ const PlayList: FC<PlayListProps> = ({ songs }) => {
               <TableCell>{song.name.split("_")[0]}</TableCell>
               <TableCell>{song.name.split("_")[1].split(".")[0]}</TableCell>
               <TableCell>
-                <Ellipsis />
+                <SongOptions />
               </TableCell>
             </TableRow>
           ))}
