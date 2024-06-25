@@ -62,7 +62,9 @@ export async function POST(request: Request) {
       message: "Processing finished successfully",
       outputFilePath,
     });
-  } catch (error) {
-    return NextResponse.json({ status: 500, message: error.message });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return NextResponse.json({ status: 500, message: error.message });
+    }
   }
 }
