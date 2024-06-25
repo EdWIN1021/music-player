@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {
     outputFileTracingIncludes: {
-      "/api/upload-song": ["./ffmpeg"],
+      "/api/upload-song": ["./tmp/**/*"],
     },
   },
 };
