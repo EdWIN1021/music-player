@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 // const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 export async function POST(request: Request) {
-  const ffmpegPath = path.join(process.cwd(), "ffmpeg");
+  const ffmpegPath = path.join(process.cwd(), "tmp", "ffmpeg");
 
   console.log(`FFmpeg Path: ${ffmpegPath}`);
 
