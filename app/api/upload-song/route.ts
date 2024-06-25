@@ -3,6 +3,7 @@ import ffmpeg from "fluent-ffmpeg";
 import ytdl from "ytdl-core";
 import { NextResponse } from "next/server";
 import fs from "fs";
+import { exec } from "child_process";
 
 // const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
@@ -10,6 +11,27 @@ export async function POST(request: Request) {
   const ffmpegPath = path.join(process.cwd(), "ffmpeg");
 
   console.log(`FFmpeg Path: ${ffmpegPath}`);
+
+  // Check if ffmpeg exists and is executable
+  try {
+    await new Promise((resolve, reject) => {
+      exec(`chmod +x ${ffmpegPath}`, (error) => {
+        if (error) {
+          reject(
+            `Error setting execute permissions on ffmpeg: ${error.message}`
+          );
+        } else {
+          resolve("");
+        }
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({
+      status: 500,
+      message: "Error setting permissions on ffmpeg",
+    });
+  }
 
   ffmpeg.setFfmpegPath(ffmpegPath);
 
@@ -28,7 +50,7 @@ export async function POST(request: Request) {
           resolve("success");
         })
         .on("error", (err) => {
-          console.error("Error processing video:", err);
+          console.error("Error processing video:", err.message, err.stack);
           reject(err);
         })
         .save(outputFilePath);
@@ -41,7 +63,6 @@ export async function POST(request: Request) {
       outputFilePath,
     });
   } catch (error) {
-    console.error("An error occurred:", error);
     return NextResponse.json({ status: 500 });
   }
 }
