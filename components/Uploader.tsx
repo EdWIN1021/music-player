@@ -32,6 +32,11 @@ export default function Uploader() {
     }
   }, [formState]);
 
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const res = await fetch("/api/upload-song", { method: "POST" });
+  };
+
   return (
     <div className="hidden sm:block">
       <Dialog open={open} onOpenChange={() => toggle((open) => !open)}>
@@ -40,7 +45,7 @@ export default function Uploader() {
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[425px]">
-          <form action={action} ref={ref}>
+          <form ref={ref} onSubmit={handleSubmit}>
             <DialogHeader>
               <DialogTitle>Youtube to mp3</DialogTitle>
               <DialogDescription>Insert a YouTube video URL</DialogDescription>
