@@ -2,8 +2,6 @@ import path from "path";
 import ffmpeg from "fluent-ffmpeg";
 import ytdl from "ytdl-core";
 import { NextResponse } from "next/server";
-import fs from "fs";
-import { exec } from "child_process";
 
 // const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
@@ -42,8 +40,6 @@ export async function POST(request: Request) {
       outputFilePath,
     });
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      return NextResponse.json({ status: 500, message: error.message });
-    }
+    return NextResponse.json({ status: 500 });
   }
 }
