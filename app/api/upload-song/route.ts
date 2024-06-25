@@ -22,13 +22,13 @@ export async function POST(request: Request) {
     const videoStream = ytdl(videoURL, { filter: "audioonly" });
 
     // Use ffmpeg to process the audio stream
-    await new Promise((resolve, reject) => {
+    const res = await new Promise((resolve, reject) => {
       ffmpeg(videoStream)
         .audioBitrate(128)
         .toFormat("mp3")
         .on("end", () => {
           console.log("Processing finished successfully");
-          resolve("");
+          resolve("success");
         })
         .on("error", (err) => {
           console.error("Error processing video:", err);
@@ -36,6 +36,8 @@ export async function POST(request: Request) {
         })
         .save(outputFilePath);
     });
+
+    console.log(res);
 
     const fileContent = fs.readFileSync(outputFilePath);
     const base64Content = fileContent.toString("base64");
