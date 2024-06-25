@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 
   ffmpeg.setFfmpegPath(ffmpegPath);
 
-  const outputFilePath = path.join(process.cwd(), "output.mp3");
+  const outputFilePath = path.join(process.cwd(), "tmp", "output.mp3");
   const videoURL = "https://www.youtube.com/watch?v=uy3bB5HzEzM";
 
   try {
