@@ -77,6 +77,14 @@ export async function POST(request: Request) {
       }),
     });
 
+    if (!uploadResponse.ok) {
+      const errorResponse = await uploadResponse.json();
+      console.error(`GitHub API Error: ${errorResponse.message}`); // Detailed error message
+      throw new Error(
+        `Failed to upload file to GitHub: ${uploadResponse.statusText}`
+      );
+    }
+
     return NextResponse.json({
       message: "Processing finished successfully",
       outputFilePath,
