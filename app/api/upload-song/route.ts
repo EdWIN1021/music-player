@@ -4,12 +4,11 @@ import ytdl from "ytdl-core";
 import { NextResponse } from "next/server";
 import fs from "fs";
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+// const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 export async function POST(request: Request) {
   const ffmpegPath = path.join(process.cwd(), "ffmpeg");
 
-  // Log the ffmpeg path
   console.log(`FFmpeg Path: ${ffmpegPath}`);
 
   ffmpeg.setFfmpegPath(ffmpegPath);
@@ -18,10 +17,8 @@ export async function POST(request: Request) {
   const videoURL = "https://www.youtube.com/watch?v=uy3bB5HzEzM";
 
   try {
-    // Create a stream from the YouTube video URL
     const videoStream = ytdl(videoURL, { filter: "audioonly" });
 
-    // Use ffmpeg to process the audio stream
     const res = await new Promise((resolve, reject) => {
       ffmpeg(videoStream)
         .audioBitrate(128)
