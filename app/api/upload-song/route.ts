@@ -63,6 +63,6 @@ export async function POST(request: Request) {
       outputFilePath,
     });
   } catch (error) {
-    return NextResponse.json({ status: 500 });
+    return NextResponse.json({ status: 500, message: error.message });
   }
 }
