@@ -12,27 +12,6 @@ export async function POST(request: Request) {
 
   console.log(`FFmpeg Path: ${ffmpegPath}`);
 
-  // Check if ffmpeg exists and is executable
-  try {
-    await new Promise((resolve, reject) => {
-      exec(`chmod +x ${ffmpegPath}`, (error) => {
-        if (error) {
-          reject(
-            `Error setting execute permissions on ffmpeg: ${error.message}`
-          );
-        } else {
-          resolve("");
-        }
-      });
-    });
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({
-      status: 500,
-      message: "Error setting permissions on ffmpeg",
-    });
-  }
-
   ffmpeg.setFfmpegPath(ffmpegPath);
 
   const outputFilePath = path.join(process.cwd(), "output.mp3");
