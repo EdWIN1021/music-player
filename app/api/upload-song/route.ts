@@ -1,45 +1,70 @@
-import path from "path";
-import ffmpeg from "fluent-ffmpeg";
-import ytdl from "ytdl-core";
 import { NextResponse } from "next/server";
-
-// const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+import fs from "fs";
+import https from "https";
+import path from "path";
+import sevenBin from "7zip-bin";
+import { extractFull } from "node-7z";
 
 export async function POST(request: Request) {
-  const ffmpegPath = path.join(process.cwd(), "tmp", "ffmpeg");
-
-  console.log(`FFmpeg Path: ${ffmpegPath}`);
-
-  ffmpeg.setFfmpegPath(ffmpegPath);
-
-  const outputFilePath = path.join(process.cwd(), "tmp", "output.mp3");
-  const videoURL = "https://www.youtube.com/watch?v=uy3bB5HzEzM";
-
   try {
-    const videoStream = ytdl(videoURL, { filter: "audioonly" });
+    const url = "https://ffmpeg.org/releases/ffmpeg-7.0.1.tar.xz";
+    const outputPath = path.join(process.cwd(), "ffmpeg-7.0.1.tar.xz");
+    const extractPath = path.join(process.cwd(), "extracted_files");
 
-    const res = await new Promise((resolve, reject) => {
-      ffmpeg(videoStream)
-        .audioBitrate(128)
-        .toFormat("mp3")
-        .on("end", () => {
-          console.log("Processing finished successfully");
-          resolve("success");
-        })
-        .on("error", (err) => {
-          console.error("Error processing video:", err.message, err.stack);
-          reject(err);
-        })
-        .save(outputFilePath);
-    });
+    const downloadFile = () => {
+      return new Promise((resolve, reject) => {
+        const file = fs.createWriteStream(outputPath);
 
-    console.log(res);
+        https
+          .get(url, (response) => {
+            if (response.statusCode !== 200) {
+              reject(
+                new Error(`Failed to get '${url}' (${response.statusCode})`)
+              );
+              response.resume();
+              return;
+            }
+
+            response.pipe(file);
+
+            file.on("finish", () => {
+              file.close(() => {
+                resolve("Download completed!");
+              });
+            });
+          })
+          .on("error", (err) => {
+            fs.unlink(outputPath, () => {}); // Delete the file async. (But we don't check the result)
+            reject(new Error(`Error: ${err.message}`));
+          });
+      });
+    };
+
+    const extractFile = () => {
+      return new Promise((resolve, reject) => {
+        extractFull(outputPath, extractPath, {
+          $bin: sevenBin.path7za,
+        })
+          .on("end", () => {
+            resolve("Extraction completed!");
+          })
+          .on("error", (err) => {
+            reject(new Error(`Error during extraction: ${err.message}`));
+          });
+      });
+    };
+
+    const downloadResult = await downloadFile();
+    console.log(downloadResult);
+
+    const extractResult = await extractFile();
+    console.log(extractResult);
 
     return NextResponse.json({
       message: "Processing finished successfully",
-      outputFilePath,
     });
-  } catch (error: unknown) {
-    return NextResponse.json({ status: 500 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ status: 500, error: error });
   }
 }
