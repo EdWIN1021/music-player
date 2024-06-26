@@ -1,4 +1,3 @@
-import * as actions from "@/actions";
 import MusicPlayer from "@/components/music-player";
 
 export default async function Home() {
