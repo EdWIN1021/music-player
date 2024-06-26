@@ -6,5 +6,7 @@ export default async function Home() {
   );
   const songs = await response.json();
 
+  console.log(songs);
+
   return <MusicPlayer songs={songs} />;
 }
