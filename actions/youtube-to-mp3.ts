@@ -34,10 +34,11 @@ export async function youtubeToMp3(
   }
 
   const videoURL = String(url);
-  // const ffmpegPath = path.join("var", "task", "bin", "ffmpeg");
-  ffmpeg.setFfmpegPath("/Users/edwin/Desktop/tmp/ffmpeg");
+  const ffmpegPath = path.join(process.cwd(), "tmp", "ffmpeg");
 
-  const outputFilePath = path.join(process.cwd(), "public", `output.mp3`);
+  ffmpeg.setFfmpegPath(ffmpegPath);
+
+  const outputFilePath = path.join(process.cwd(), "tmp", `output.mp3`);
 
   const videoStream = ytdl(videoURL, { filter: "audioonly" });
 
@@ -54,7 +55,7 @@ export async function youtubeToMp3(
     const fileContent = fs.readFileSync(outputFilePath);
     const base64Content = fileContent.toString("base64");
 
-    const githubApiUrl = `https://api.github.com/repos/EdWIN1021/muisc/contents/${title}_${artist}.mp3`;
+    const githubApiUrl = `https://api.github.com/repos/EdWIN1021/music/contents/${title}_${artist}.mp3`;
 
     console.log(`GitHub API URL: ${githubApiUrl}`); // Debugging line
 

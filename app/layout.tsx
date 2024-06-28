@@ -33,6 +33,12 @@ export default function RootLayout({
           <Footer />
         </MusicProvider>
       </body>
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/ffmpeg/0.12.10/umd/ffmpeg.min.js"
+        integrity="sha512-j2FJMGBh+AdPWKCKDqIzH67vu4ps8OsNZqqetz8YSlbwy2ZwFTL+p6Hp1j17nL0B7IDl9E4zhPUXZKwz7MzjQQ=="
+        crossorigin="anonymous"
+        async
+      />
     </html>
   );
 }

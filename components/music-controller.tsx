@@ -10,8 +10,8 @@ interface MusicControllerProps {
 const MusicController: FC<MusicControllerProps> = ({ songs }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const seekBarRef = useRef<HTMLInputElement>(null);
-  const [currentTime, setCurrentTime] = useState<number>(0);
-  const [duration, setDuration] = useState<number>(0);
+  // const [currentTime, setCurrentTime] = useState<number>(0);
+  // const [duration, setDuration] = useState<number>(0);
   const { isPlaying, setIsPlaying, trackIndex, setTrackIndex } =
     useContext(MusicContext);
 
@@ -32,26 +32,26 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const updateTime = () => {
-      setCurrentTime(audio.currentTime);
-      if (seekBarRef.current && audio.duration) {
-        seekBarRef.current.value = (
-          (audio.currentTime / audio.duration) *
-          100
-        ).toString();
-      }
-    };
+    // const updateTime = () => {
+    //   setCurrentTime(audio.currentTime);
+    //   if (seekBarRef.current && audio.duration) {
+    //     seekBarRef.current.value = (
+    //       (audio.currentTime / audio.duration) *
+    //       100
+    //     ).toString();
+    //   }
+    // };
 
-    const updateDuration = () => {
-      setDuration(audio.duration);
-    };
+    // const updateDuration = () => {
+    //   setDuration(audio.duration);
+    // };
 
-    audio.addEventListener("timeupdate", updateTime);
-    audio.addEventListener("loadedmetadata", updateDuration);
+    // audio.addEventListener("timeupdate", updateTime);
+    // audio.addEventListener("loadedmetadata", updateDuration);
 
     return () => {
-      audio.removeEventListener("timeupdate", updateTime);
-      audio.removeEventListener("loadedmetadata", updateDuration);
+      // audio.removeEventListener("timeupdate", updateTime);
+      // audio.removeEventListener("loadedmetadata", updateDuration);
     };
   }, []);
 
@@ -87,20 +87,20 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
     }
   };
 
-  const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const audio = audioRef.current;
-    if (!audio) return;
+  // const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const audio = audioRef.current;
+  //   if (!audio) return;
 
-    const seekTime = (audio.duration / 100) * parseFloat(e.target.value);
-    setCurrentTime(seekTime);
-    audio.currentTime = seekTime;
-  };
+  //   const seekTime = (audio.duration / 100) * parseFloat(e.target.value);
+  //   setCurrentTime(seekTime);
+  //   audio.currentTime = seekTime;
+  // };
 
-  const formatTime = (time: number): string => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
+  // const formatTime = (time: number): string => {
+  //   const minutes = Math.floor(time / 60);
+  //   const seconds = Math.floor(time % 60);
+  //   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  // };
 
   return (
     <>
@@ -127,7 +127,7 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
                 </span>
               </p>
 
-              <div className="hidden sm:flex flex-1 items-center mx-20 gap-5">
+              {/* <div className="hidden sm:flex flex-1 items-center mx-20 gap-5">
                 <input
                   className="h-1 block flex-1"
                   type="range"
@@ -140,7 +140,7 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
                 <span className="text-sm text-gray-500">
                   {formatTime(currentTime)} / {formatTime(duration)}
                 </span>
-              </div>
+              </div> */}
 
               <div className="flex items-center gap-5">
                 <Shuffle
