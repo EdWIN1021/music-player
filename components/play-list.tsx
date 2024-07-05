@@ -1,9 +1,8 @@
 "use client";
 
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { MusicContext } from "@/music-provider";
-import { Ellipsis } from "lucide-react";
 import SongOptions from "./song-options";
 
 interface PlayListProps {
