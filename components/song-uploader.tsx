@@ -20,7 +20,7 @@ import { FileUploader } from "react-drag-drop-files";
 
 const fileTypes = ["MP3"];
 
-export default function Uploader() {
+export default function SongUploader() {
   const [open, toggle] = useState(false);
   const ref = useRef<HTMLFormElement | null>(null);
 
