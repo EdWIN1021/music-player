@@ -75,7 +75,12 @@ export default function SongUploader() {
                 />
               </div>
 
-              <FileUploader name="file" types={fileTypes} required />
+              <FileUploader
+                name="file"
+                types={fileTypes}
+                maxSize={4.5}
+                required
+              />
             </div>
 
             <DialogFooter>
