@@ -16,11 +16,15 @@ import { Label } from "@radix-ui/react-label";
 import SubmitButton from "./submit-button";
 import { useFormState } from "react-dom";
 import { useEffect, useRef, useState } from "react";
+import { FileUploader } from "react-drag-drop-files";
+
+const fileTypes = ["MP3"];
 
 export default function Uploader() {
   const [open, toggle] = useState(false);
   const ref = useRef<HTMLFormElement | null>(null);
-  const [formState, action] = useFormState(actions.youtubeToMp3, {
+
+  const [formState, action] = useFormState(actions.uploadSong, {
     errors: {},
     success: false,
   });
@@ -42,13 +46,13 @@ export default function Uploader() {
         <DialogContent className="sm:max-w-[425px]">
           <form ref={ref} action={action}>
             <DialogHeader>
-              <DialogTitle>Youtube to mp3</DialogTitle>
-              <DialogDescription>Insert a YouTube video URL</DialogDescription>
+              <DialogTitle>Upload music to Github repo</DialogTitle>
+              <DialogDescription></DialogDescription>
             </DialogHeader>
 
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-5 items-center gap-4">
-                <Label htmlFor="title" className="text-right text-sm">
+                <Label htmlFor="title" className="text-left text-sm">
                   Title
                 </Label>
                 <Input
@@ -60,7 +64,7 @@ export default function Uploader() {
               </div>
 
               <div className="grid grid-cols-5 items-center gap-4">
-                <Label htmlFor="artist" className="text-right text-sm">
+                <Label htmlFor="artist" className="text-left text-sm">
                   Artist
                 </Label>
                 <Input
@@ -71,22 +75,11 @@ export default function Uploader() {
                 />
               </div>
 
-              <div className="grid grid-cols-5 items-center gap-4">
-                <Label htmlFor="url" className="text-right text-sm">
-                  Url
-                </Label>
-                <Input
-                  id="url"
-                  type="url"
-                  name="url"
-                  className="col-span-4 rounded"
-                  required
-                />
-              </div>
+              <FileUploader name="file" types={fileTypes} required />
             </div>
 
             <DialogFooter>
-              <SubmitButton>Convert</SubmitButton>
+              <SubmitButton>Save</SubmitButton>
             </DialogFooter>
           </form>
         </DialogContent>

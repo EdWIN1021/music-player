@@ -53,6 +53,8 @@ export async function youtubeToMp3(
     });
 
     const fileContent = fs.readFileSync(outputFilePath);
+
+    //here
     const base64Content = fileContent.toString("base64");
 
     const githubApiUrl = `https://api.github.com/repos/EdWIN1021/music/contents/${title}_${artist}.mp3`;
