@@ -10,7 +10,7 @@ interface PlayListProps {
 }
 
 const PlayList: FC<PlayListProps> = ({ songs }) => {
-  const { search, setIsPlaying, setTrackIndex } = useContext(MusicContext);
+  const { setIsPlaying, setTrackIndex } = useContext(MusicContext);
 
   const handleClick = (index: number) => {
     setIsPlaying(true);
@@ -27,7 +27,7 @@ const PlayList: FC<PlayListProps> = ({ songs }) => {
               className="cursor-pointer"
               onClick={() => handleClick(index)}
             >
-              <TableCell>{song.name}</TableCell>
+              <TableCell>{song.name.split(".")[0]}</TableCell>
               <TableCell>{song.name.split(".")[1]}</TableCell>
 
               <TableCell>
