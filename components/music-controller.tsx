@@ -121,7 +121,7 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
                 <p className="sm:text-center flex items-center">
                   <span className="text-sm font-medium">
                     {/* {songs[trackIndex].name.split("_")[0] + " - "} */}
-                    {songs[trackIndex]?.name.split(".")[0]}
+                    {songs[trackIndex]?.name.split(".")[0] + " - "}
                   </span>
                   <span className="text-xs text-gray-500">
                     {/* {songs[trackIndex].name.split("_")[1].split(".")[0]} */}
