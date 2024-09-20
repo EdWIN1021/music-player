@@ -30,9 +30,9 @@ const PlayList: FC<PlayListProps> = ({ songs }) => {
               <TableCell>{song.name.split(".")[0]}</TableCell>
               <TableCell>{song.name.split(".")[1]}</TableCell>
 
-              <TableCell>
+              {/* <TableCell>
                 <SongOptions />
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           ))}
         </TableBody>
