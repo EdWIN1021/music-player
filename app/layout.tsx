@@ -30,7 +30,7 @@ export default function RootLayout({
         <MusicProvider>
           <Header />
           <div className="flex-1">{children}</div>
-          <Footer />
+          {/* <Footer /> */}
         </MusicProvider>
       </body>
     </html>
