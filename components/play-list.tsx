@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useMemo, useState } from "react";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { MusicContext } from "@/music-provider";
 import SongOptions from "./song-options";
@@ -10,7 +10,7 @@ interface PlayListProps {
 }
 
 const PlayList: FC<PlayListProps> = ({ songs }) => {
-  const { setIsPlaying, setTrackIndex } = useContext(MusicContext);
+  const { search, setIsPlaying, setTrackIndex } = useContext(MusicContext);
 
   const handleClick = (index: number) => {
     setIsPlaying(true);
@@ -27,9 +27,6 @@ const PlayList: FC<PlayListProps> = ({ songs }) => {
               className="cursor-pointer"
               onClick={() => handleClick(index)}
             >
-              {/* <TableCell>{song.name.split("_")[0]}</TableCell>
-              <TableCell>{song.name.split("_")[1].split(".")[0]}</TableCell> */}
-
               <TableCell>{song.name}</TableCell>
               <TableCell>{song.name.split(".")[1]}</TableCell>
 
