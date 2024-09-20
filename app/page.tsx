@@ -1,9 +1,8 @@
-import YoutubeToMp3Form from "@/components/YoutubeToMp3Form";
 import MusicPlayer from "@/components/music-player";
 
 export default async function Home() {
   const response = await fetch(
-    "https://api.github.com/repos/EdWIN1021/music/contents"
+    "https://api.github.com/repos/EdWIN1021/music-player/contents/music"
   );
   const songs = await response.json();
 

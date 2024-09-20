@@ -27,8 +27,12 @@ const PlayList: FC<PlayListProps> = ({ songs }) => {
               className="cursor-pointer"
               onClick={() => handleClick(index)}
             >
-              <TableCell>{song.name.split("_")[0]}</TableCell>
-              <TableCell>{song.name.split("_")[1].split(".")[0]}</TableCell>
+              {/* <TableCell>{song.name.split("_")[0]}</TableCell>
+              <TableCell>{song.name.split("_")[1].split(".")[0]}</TableCell> */}
+
+              <TableCell>{song.name}</TableCell>
+              <TableCell>{song.name}</TableCell>
+
               <TableCell>
                 <SongOptions />
               </TableCell>
