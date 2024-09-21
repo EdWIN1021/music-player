@@ -27,6 +27,7 @@
     "react-drag-drop-files": "^2.3.10",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "youtube-dl-exec": "^3.0.9",
     "ytdl-core": "^4.11.5"
   },
   "devDependencies": {

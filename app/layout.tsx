@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import MusicProvider from "@/music-provider";
-import Footer from "@/components/footer";
 import Header from "@/components/header";
 import clsx from "clsx";
 

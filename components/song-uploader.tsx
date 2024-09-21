@@ -16,7 +16,6 @@ import { Label } from "@radix-ui/react-label";
 import SubmitButton from "./submit-button";
 import { useFormState } from "react-dom";
 import { useEffect, useRef, useState } from "react";
-import { FileUploader } from "react-drag-drop-files";
 
 const fileTypes = ["MP3"];
 
@@ -46,7 +45,7 @@ export default function SongUploader() {
         <DialogContent className="sm:max-w-[425px]">
           <form ref={ref} action={action}>
             <DialogHeader>
-              <DialogTitle>Upload music to Github repo</DialogTitle>
+              <DialogTitle>Download Music</DialogTitle>
               <DialogDescription></DialogDescription>
             </DialogHeader>
 
@@ -74,11 +73,17 @@ export default function SongUploader() {
                   required
                 />
               </div>
+            </div>
 
-              <FileUploader
-                name="file"
-                types={fileTypes}
-                maxSize={4.5}
+            <div className="grid grid-cols-5 items-center gap-4">
+              <Label htmlFor="url" className="text-left text-sm">
+                Url
+              </Label>
+              <Input
+                id="url"
+                type="url"
+                name="url"
+                className="col-span-4 rounded"
                 required
               />
             </div>

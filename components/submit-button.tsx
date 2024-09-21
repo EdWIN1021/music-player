@@ -9,12 +9,12 @@ interface SubmitButtonProps {
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({ children }) => {
   const { pending } = useFormStatus();
-  
+
   return (
-    <Button className="rounded-full" type="submit" disabled={pending}> 
-      {children} 
+    <Button className="mt-5" type="submit" disabled={pending}>
+      {children}
     </Button>
   );
-}; 
+};
 
 export default SubmitButton;
