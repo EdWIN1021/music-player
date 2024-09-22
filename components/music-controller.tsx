@@ -71,7 +71,7 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
         )}
       </div>
       {songs.length > 0 && (
-        <div className="absolute bottom-0 flex flex-col justify-center w-full">
+        <div className="absolute bottom-0 w-full">
           <div>
             <div className="mx-8 my-5 rounded-xl shadow-[0_2px_15px_-1px_rgba(0,0,0,0.1)] px-5 py-5">
               <div className="flex justify-between items-center">
