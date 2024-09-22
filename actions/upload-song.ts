@@ -4,7 +4,6 @@ import ytdl from "@distube/ytdl-core";
 import { revalidatePath } from "next/cache";
 import path from "path";
 import ffmpeg from "fluent-ffmpeg";
-import { promises as fs } from "fs"; // to handle file operations
 
 interface YoutubeToMp3FormState {
   errors: {
