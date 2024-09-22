@@ -1,1 +1,1 @@
-export { uploadSong } from "./upload-song";
+export { downloadSong } from "./download-song";

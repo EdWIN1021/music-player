@@ -15,7 +15,7 @@ interface YoutubeToMp3FormState {
 const ffmpegPath = path.join(process.cwd(), "tmp", "ffmpeg");
 ffmpeg.setFfmpegPath(ffmpegPath);
 
-export async function uploadSong(
+export async function downloadSong(
   formState: YoutubeToMp3FormState,
   formData: FormData
 ) {

@@ -17,11 +17,11 @@ import SubmitButton from "./submit-button";
 import { useFormState } from "react-dom";
 import { useEffect, useRef, useState } from "react";
 
-export default function SongUploader() {
+export default function SongDownloader() {
   const [open, toggle] = useState(false);
   const ref = useRef<HTMLFormElement | null>(null);
 
-  const [formState, action] = useFormState(actions.uploadSong, {
+  const [formState, action] = useFormState(actions.downloadSong, {
     errors: {},
     success: false,
   });
