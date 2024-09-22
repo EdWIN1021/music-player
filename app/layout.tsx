@@ -25,11 +25,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className={clsx(`h-[100vh] flex flex-col`, nunito.className)}>
+      <body className={clsx(`h-[100vh]`, nunito.className)}>
         <MusicProvider>
           <Header />
           <div className="flex-1">{children}</div>
-          {/* <Footer /> */}
         </MusicProvider>
       </body>
     </html>

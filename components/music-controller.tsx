@@ -9,11 +9,10 @@ interface MusicControllerProps {
 
 const MusicController: FC<MusicControllerProps> = ({ songs }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const seekBarRef = useRef<HTMLInputElement>(null);
-  const { isPlaying, setIsPlaying, trackIndex, setTrackIndex, currentSong } =
+  const { isPlaying, setIsPlaying, currentSong, setCurrentSong } =
     useContext(MusicContext);
 
-  const [isShuffle, setIsShuffle] = useState(false);
+  const [isShuffle, setIsShuffle] = useState(true);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -24,7 +23,7 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
         audio.play();
       }
     }
-  }, [trackIndex, isPlaying]);
+  }, [isPlaying, currentSong]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -33,25 +32,16 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
     return () => {};
   }, []);
 
-  const handleEnded = () => {
-    setTrackIndex((prev) => (prev + 1) % songs.length);
-  };
+  useEffect(() => {
+    if (!currentSong)
+      setCurrentSong(songs[Math.floor(Math.random() * (songs.length + 1))]);
+  }, []);
 
-  const handlePrevious = () => {
-    if (isShuffle) {
-      setTrackIndex(Math.floor(Math.random() * (songs.length + 1)));
-    } else {
-      setTrackIndex((prev) => (prev - 1 + songs.length) % songs.length);
-    }
-  };
+  console.log(currentSong);
 
-  const handleNext = () => {
-    if (isShuffle) {
-      setTrackIndex(Math.floor(Math.random() * (songs.length + 1)));
-    } else {
-      setTrackIndex((prev) => (prev + 1) % songs.length);
-    }
-  };
+  const handleEnded = () => setRandomSong();
+  const handlePrevious = () => setRandomSong();
+  const handleNext = () => setRandomSong();
 
   const handlePlayPause = () => {
     const audio = audioRef.current;
@@ -65,20 +55,9 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
     }
   };
 
-  // const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const audio = audioRef.current;
-  //   if (!audio) return;
-
-  //   const seekTime = (audio.duration / 100) * parseFloat(e.target.value);
-  //   setCurrentTime(seekTime);
-  //   audio.currentTime = seekTime;
-  // };
-
-  // const formatTime = (time: number): string => {
-  //   const minutes = Math.floor(time / 60);
-  //   const seconds = Math.floor(time % 60);
-  //   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  // };
+  const setRandomSong = () => {
+    setCurrentSong(songs[Math.floor(Math.random() * (songs.length + 1))]);
+  };
 
   return (
     <>
@@ -86,7 +65,7 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
         {songs.length > 0 && (
           <>
             <audio controls ref={audioRef} preload="none" onEnded={handleEnded}>
-              <source src={songs[trackIndex]?.download_url} type="audio/mp3" />
+              <source src={currentSong?.download_url} type="audio/mp3" />
             </audio>
           </>
         )}
@@ -96,32 +75,15 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
           <div>
             <div className="mx-8 my-5 rounded-xl shadow-[0_2px_15px_-1px_rgba(0,0,0,0.1)] px-5 py-5">
               <div className="flex justify-between items-center">
-                <p className="sm:text-center flex items-center">
+                <p className="sm:text-center flex items-center whitespace-nowrap">
                   <span className="text-sm font-medium">
-                    {/* {songs[trackIndex].name.split("_")[0] + " - "} */}
                     {currentSong?.name.split(".")[0]}
                   </span>
                   {" - "}
                   <span className="text-xs text-gray-500">
-                    {/* {songs[trackIndex].name.split("_")[1].split(".")[0]} */}
                     {currentSong?.name.split(".")[1]}
                   </span>
                 </p>
-
-                {/* <div className="hidden sm:flex flex-1 items-center mx-20 gap-5">
-                <input
-                  className="h-1 block flex-1"
-                  type="range"
-                  ref={seekBarRef}
-                  defaultValue={0}
-                  max="100"
-                  onChange={handleSeekChange}
-                  onInput={handleSeekChange}
-                />
-                <span className="text-sm text-gray-500">
-                  {formatTime(currentTime)} / {formatTime(duration)}
-                </span>
-              </div> */}
 
                 <div className="flex items-center gap-5">
                   <Shuffle
