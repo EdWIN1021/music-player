@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import MusicPlayer from "@/components/music-player";
 
 export default async function Home() {

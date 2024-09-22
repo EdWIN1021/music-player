@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useRef, useState } from "react";
+import React, { FC, useContext, useEffect, useRef } from "react";
 import { Play, Pause, StepForward, StepBack } from "lucide-react";
 import { MusicContext } from "@/music-provider";
 
@@ -10,8 +10,6 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const { isPlaying, setIsPlaying, currentSong, setCurrentSong } =
     useContext(MusicContext);
-
-  const [isShuffle, setIsShuffle] = useState(true);
 
   useEffect(() => {
     const audio = audioRef.current;
