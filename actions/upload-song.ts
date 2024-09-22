@@ -27,7 +27,7 @@ export async function uploadSong(
   const outputPath = path.join(
     process.cwd(),
     "music",
-    `${title}.${artist}.mp3`
+    `${title?.trim()}.${artist?.trim()}.mp3`
   );
 
   const videoUrl = String(url);

@@ -37,7 +37,7 @@ export default function SongUploader() {
     <div className="hidden sm:block">
       <Dialog open={open} onOpenChange={() => toggle((open) => !open)}>
         <DialogTrigger asChild>
-          <Button>Upload</Button>
+          <Button>Download</Button>
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[425px]">
