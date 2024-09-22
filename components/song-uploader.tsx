@@ -17,8 +17,6 @@ import SubmitButton from "./submit-button";
 import { useFormState } from "react-dom";
 import { useEffect, useRef, useState } from "react";
 
-const fileTypes = ["MP3"];
-
 export default function SongUploader() {
   const [open, toggle] = useState(false);
   const ref = useRef<HTMLFormElement | null>(null);
@@ -39,7 +37,7 @@ export default function SongUploader() {
     <div className="hidden sm:block">
       <Dialog open={open} onOpenChange={() => toggle((open) => !open)}>
         <DialogTrigger asChild>
-          <Button className="rounded-full">Upload</Button>
+          <Button>Upload</Button>
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[425px]">
