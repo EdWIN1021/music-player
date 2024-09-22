@@ -10,11 +10,13 @@ interface PlayListProps {
 }
 
 const PlayList: FC<PlayListProps> = ({ songs }) => {
-  const { setIsPlaying, setTrackIndex } = useContext(MusicContext);
+  const { setIsPlaying, setTrackIndex, setCurrentSong } =
+    useContext(MusicContext);
 
-  const handleClick = (index: number) => {
+  const handleClick = (index: number, song: Song) => {
     setIsPlaying(true);
     setTrackIndex(index);
+    setCurrentSong(song);
   };
 
   return (
@@ -25,7 +27,7 @@ const PlayList: FC<PlayListProps> = ({ songs }) => {
             <TableRow
               key={index}
               className="cursor-pointer"
-              onClick={() => handleClick(index)}
+              onClick={() => handleClick(index, song)}
             >
               <TableCell>{song.name.split(".")[0]}</TableCell>
               <TableCell>{song.name.split(".")[1]}</TableCell>

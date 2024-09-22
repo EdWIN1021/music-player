@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import PlayList from "./play-list";
-import MusicController from "./music-controller";
 import Container from "./Container";
 
 interface MusicPlayerProps {

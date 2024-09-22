@@ -10,9 +10,7 @@ interface MusicControllerProps {
 const MusicController: FC<MusicControllerProps> = ({ songs }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const seekBarRef = useRef<HTMLInputElement>(null);
-  // const [currentTime, setCurrentTime] = useState<number>(0);
-  // const [duration, setDuration] = useState<number>(0);
-  const { isPlaying, setIsPlaying, trackIndex, setTrackIndex } =
+  const { isPlaying, setIsPlaying, trackIndex, setTrackIndex, currentSong } =
     useContext(MusicContext);
 
   const [isShuffle, setIsShuffle] = useState(false);
@@ -32,27 +30,7 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    // const updateTime = () => {
-    //   setCurrentTime(audio.currentTime);
-    //   if (seekBarRef.current && audio.duration) {
-    //     seekBarRef.current.value = (
-    //       (audio.currentTime / audio.duration) *
-    //       100
-    //     ).toString();
-    //   }
-    // };
-
-    // const updateDuration = () => {
-    //   setDuration(audio.duration);
-    // };
-
-    // audio.addEventListener("timeupdate", updateTime);
-    // audio.addEventListener("loadedmetadata", updateDuration);
-
-    return () => {
-      // audio.removeEventListener("timeupdate", updateTime);
-      // audio.removeEventListener("loadedmetadata", updateDuration);
-    };
+    return () => {};
   }, []);
 
   const handleEnded = () => {
@@ -121,12 +99,12 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
                 <p className="sm:text-center flex items-center">
                   <span className="text-sm font-medium">
                     {/* {songs[trackIndex].name.split("_")[0] + " - "} */}
-                    {songs[trackIndex]?.name.split(".")[0]}
+                    {currentSong?.name.split(".")[0]}
                   </span>
                   {" - "}
                   <span className="text-xs text-gray-500">
                     {/* {songs[trackIndex].name.split("_")[1].split(".")[0]} */}
-                    {songs[trackIndex]?.name.split(".")[1]}
+                    {currentSong?.name.split(".")[1]}
                   </span>
                 </p>
 
