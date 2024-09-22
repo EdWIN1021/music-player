@@ -37,8 +37,6 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
       setCurrentSong(songs[Math.floor(Math.random() * (songs.length + 1))]);
   }, []);
 
-  console.log(currentSong);
-
   const handleEnded = () => setRandomSong();
   const handlePrevious = () => setRandomSong();
   const handleNext = () => setRandomSong();
