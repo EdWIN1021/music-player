@@ -3,6 +3,7 @@ import { Nunito } from "next/font/google";
 import "./globals.css";
 import MusicProvider from "@/music-provider";
 import Header from "@/components/header";
+import { ThemeProvider } from "@/components/theme-provider";
 import clsx from "clsx";
 
 const nunito = Nunito({ subsets: ["latin"] });
@@ -29,7 +30,15 @@ export default function RootLayout({
       <body className={clsx(`h-[100vh]`, nunito.className)}>
         <MusicProvider>
           <Header />
-          <div className="flex-1">{children}</div>
+
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
         </MusicProvider>
       </body>
     </html>
