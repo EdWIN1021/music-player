@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 
-import { Separator } from "./ui/separator";
 import SongDownloader from "./song-downloader";
+import Modes from "@/components/modes";
 
 const header = () => {
   return (
@@ -15,6 +15,7 @@ const header = () => {
         {/* <SearchInput /> */}
         {process.env.NODE_ENV === "development" && <SongDownloader />}
       </div>
+      <Modes />
     </>
   );
 };
