@@ -1,12 +1,38 @@
+"use client";
+
 import React, { FC, useContext, useEffect, useRef } from "react";
 import { Play, Pause, StepForward, StepBack } from "lucide-react";
 import { MusicContext } from "@/music-provider";
+import Image from "next/image";
+
+import { useQuery } from "@tanstack/react-query";
 
 interface MusicControllerProps {
   songs: Song[];
 }
 
+async function fetchImage() {
+  const response = await fetch("https://picsum.photos/200", {
+    cache: "no-store",
+  });
+
+  const data = await response.json();
+
+  console.log(data);
+
+  return data;
+}
+
 const MusicController: FC<MusicControllerProps> = ({ songs }) => {
+  const {
+    data: image,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["image"],
+    queryFn: fetchImage,
+  });
+
   const audioRef = useRef<HTMLAudioElement>(null);
   const { isPlaying, setIsPlaying, currentSong, setCurrentSong } =
     useContext(MusicContext);
@@ -66,18 +92,29 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
         )}
       </div>
       {songs.length > 0 && (
-        <div className="absolute bottom-0 w-full">
+        <div className=" w-full">
           <div className="mx-8 my-5 rounded-xl shadow-[0_2px_15px_-1px_rgba(0,0,0,0.1)] px-5 py-5">
             <div className="flex justify-between items-center">
-              <p className="sm:text-center flex items-center whitespace-nowrap">
-                <span className="text-sm font-medium">
-                  {currentSong?.name.split(".")[0]}
-                </span>
-                {" - "}
-                <span className="text-xs text-gray-500">
-                  {currentSong?.name.split(".")[1]}
-                </span>
-              </p>
+              <div className="flex gap-5">
+                <Image
+                  className="rounded"
+                  src={"https://picsum.photos/40"}
+                  width={40}
+                  height={40}
+                  style={{ height: "auto", width: "auto" }}
+                  alt="..."
+                />
+
+                <p className="sm:text-center flex items-center whitespace-nowrap">
+                  <span className="text-sm font-medium">
+                    {currentSong?.name.split(".")[0]}
+                  </span>
+                  {" - "}
+                  <span className="text-xs text-gray-500">
+                    {currentSong?.name.split(".")[1]}
+                  </span>
+                </p>
+              </div>
 
               <div className="flex items-center gap-5">
                 <StepBack

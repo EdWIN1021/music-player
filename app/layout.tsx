@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
-import "./globals.css";
-import MusicProvider from "@/music-provider";
-import Header from "@/components/header";
-import { ThemeProvider } from "@/components/theme-provider";
+
 import clsx from "clsx";
+import "./globals.css";
+
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import Providers from "@/components/providers";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -27,19 +29,14 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className={clsx(`h-[100vh]`, nunito.className)}>
-        <MusicProvider>
+      <body
+        className={clsx(`min-h-screen bg-black text-white`, nunito.className)}
+      >
+        <Providers>
           <Header />
-
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </MusicProvider>
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
