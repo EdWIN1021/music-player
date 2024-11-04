@@ -4,6 +4,7 @@ import React, { FC, useContext, useEffect, useRef } from "react";
 import { Play, Pause, SkipForward, SkipBack } from "lucide-react";
 import { MusicContext } from "@/music-provider";
 import Image from "next/image";
+import { Progress } from "@/components/ui/progress";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -91,9 +92,10 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
           </>
         )}
       </div>
+
       {songs.length > 0 && (
-        <div className=" w-full">
-          <div className="mx-8 my-5 rounded-xl shadow-[0_2px_15px_-1px_rgba(0,0,0,0.1)] px-5 py-5">
+        <div className="w-full">
+          <div className=" rounded-xl shadow-[0_2px_15px_-1px_rgba(0,0,0,0.1)] px-5 py-5">
             <div className="flex justify-between items-center">
               <div className="flex gap-5">
                 <Image
@@ -136,6 +138,7 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
                 />
               </div>
             </div>
+            <Progress className="my-3" value={33} />
           </div>
         </div>
       )}

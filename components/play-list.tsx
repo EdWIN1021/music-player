@@ -3,7 +3,7 @@
 import React, { FC, useContext, useEffect, useMemo, useState } from "react";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { MusicContext } from "@/music-provider";
-import SongOptions from "./song-options";
+// import SongOptions from "./song-options";
 
 interface PlayListProps {
   songs: Song[];
