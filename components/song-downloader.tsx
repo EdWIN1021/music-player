@@ -37,7 +37,7 @@ export default function SongDownloader() {
     <div className="hidden sm:block">
       <Dialog open={open} onOpenChange={() => toggle((open) => !open)}>
         <DialogTrigger asChild>
-          <Button>Download</Button>
+          <Button className="bg-[#00C2CB] rounded-full">Download</Button>
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[425px]">

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, useContext, useEffect, useRef } from "react";
-import { Play, Pause, StepForward, StepBack } from "lucide-react";
+import { Play, Pause, SkipForward, SkipBack } from "lucide-react";
 import { MusicContext } from "@/music-provider";
 import Image from "next/image";
 
@@ -105,19 +105,18 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
                   alt="..."
                 />
 
-                <p className="sm:text-center flex items-center whitespace-nowrap">
-                  <span className="text-sm font-medium">
+                <p className="flex flex-col gap-1 whitespace-nowrap">
+                  <span className="text-md font-medium">
                     {currentSong?.name.split(".")[0]}
                   </span>
-                  {" - "}
-                  <span className="text-xs text-gray-500">
+                  <span className="text-sm text-gray-500">
                     {currentSong?.name.split(".")[1]}
                   </span>
                 </p>
               </div>
 
               <div className="flex items-center gap-5">
-                <StepBack
+                <SkipBack
                   className="cursor-pointer fill-black"
                   onClick={handlePrevious}
                 />
@@ -126,12 +125,12 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
                   onClick={handlePlayPause}
                 >
                   {isPlaying ? (
-                    <Pause className="fill-black" />
+                    <Pause className="bg-[#00C2CB] rounded-full w-10 h-10 p-2" />
                   ) : (
-                    <Play className="fill-black" />
+                    <Play className="bg-[#00C2CB] rounded-full w-10 h-10 p-2" />
                   )}
                 </div>
-                <StepForward
+                <SkipForward
                   className="cursor-pointer fill-black"
                   onClick={handleNext}
                 />
