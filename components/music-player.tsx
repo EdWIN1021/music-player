@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import Container from "@/components/container";
+import MusicContainer from "@/components/music-container";
 
 interface MusicPlayerProps {
   songs: Song[];
 }
 
 const MusicPlayer: React.FC<MusicPlayerProps> = ({ songs }) => {
-  return <Container songs={songs} />;
+  return <MusicContainer songs={songs} />;
 };
 
 export default MusicPlayer;

@@ -9,7 +9,7 @@ interface ContainerProps {
   songs: Song[];
 }
 
-const Container: React.FC<ContainerProps> = ({ songs }) => {
+const MusicContainer: React.FC<ContainerProps> = ({ songs }) => {
   const { search } = useContext(MusicContext);
   const playList = useMemo(() => {
     const arr: Song[] = [];
@@ -27,4 +27,4 @@ const Container: React.FC<ContainerProps> = ({ songs }) => {
   );
 };
 
-export default Container;
+export default MusicContainer;
