@@ -95,12 +95,12 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
 
       {songs.length > 0 && (
         <div className="w-full">
-          <div className=" rounded-xl shadow-[0_2px_15px_-1px_rgba(0,0,0,0.1)] px-5 py-5">
+          <div className=" rounded-xl shadow-[0_2px_15px_-1px_rgba(0,0,0,0.1)] px-5 py-2">
             <div className="flex justify-between items-center">
               <div className="flex gap-5">
                 <Image
                   className="rounded"
-                  src={"https://picsum.photos/40"}
+                  src={"https://picsum.photos/200"}
                   width={40}
                   height={40}
                   style={{ height: "auto", width: "auto" }}
