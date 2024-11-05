@@ -12,28 +12,7 @@ interface MusicControllerProps {
   songs: Song[];
 }
 
-async function fetchImage() {
-  const response = await fetch("https://picsum.photos/200", {
-    cache: "no-store",
-  });
-
-  const data = await response.json();
-
-  console.log(data);
-
-  return data;
-}
-
 const MusicController: FC<MusicControllerProps> = ({ songs }) => {
-  const {
-    data: image,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["image"],
-    queryFn: fetchImage,
-  });
-
   const audioRef = useRef<HTMLAudioElement>(null);
   const { isPlaying, setIsPlaying, currentSong, setCurrentSong } =
     useContext(MusicContext);
@@ -59,13 +38,13 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
   useEffect(() => {
     if (!currentSong)
       setCurrentSong(songs[Math.floor(Math.random() * (songs.length + 1))]);
-  }, []);
+  }, [currentSong, setCurrentSong, songs]);
 
   const handleEnded = () => setRandomSong();
   const handlePrevious = () => setRandomSong();
   const handleNext = () => setRandomSong();
 
-  const handlePlayPause = () => {
+  const handlePlayAndPause = () => {
     const audio = audioRef.current;
     if (audio) {
       if (isPlaying) {
@@ -80,6 +59,8 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
   const setRandomSong = () => {
     setCurrentSong(songs[Math.floor(Math.random() * (songs.length + 1))]);
   };
+
+  console.log(currentSong);
 
   return (
     <>
@@ -124,7 +105,7 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
                 />
                 <div
                   className="rounded-full p-1 cursor-pointer shadow-2xl"
-                  onClick={handlePlayPause}
+                  onClick={handlePlayAndPause}
                 >
                   {isPlaying ? (
                     <Pause className="bg-[#00C2CB] rounded-full w-10 h-10 p-2" />
