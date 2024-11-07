@@ -6,8 +6,6 @@ import { MusicContext } from "@/music-provider";
 import Image from "next/image";
 import { Progress } from "@/components/ui/progress";
 
-import { useQuery } from "@tanstack/react-query";
-
 interface MusicControllerProps {
   songs: Song[];
 }
@@ -59,8 +57,6 @@ const MusicController: FC<MusicControllerProps> = ({ songs }) => {
   const setRandomSong = () => {
     setCurrentSong(songs[Math.floor(Math.random() * (songs.length + 1))]);
   };
-
-  console.log(currentSong);
 
   return (
     <>

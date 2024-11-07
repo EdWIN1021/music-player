@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 
 const Modes = () => {
   return (
-    <div className="px-12 py-2 flex gap-3">
+    <div className="px-3 flex gap-3 mb-4">
       <Badge className="text-white text-md" variant="outline">
         Normal
       </Badge>

@@ -1,14 +1,53 @@
 "use client";
 
-import React from "react";
-import MusicContainer from "@/components/music-container";
+import React, { useContext, useMemo, useState } from "react";
+import PlayList from "./play-list";
+import MusicController from "./music-controller";
+import { MusicContext } from "@/music-provider";
+import { useQuery } from "@tanstack/react-query";
 
-interface MusicPlayerProps {
-  songs: Song[];
-}
+const fetchSongs = async (mode: string) => {
+  const response = await fetch(
+    "https://api.github.com/repos/EdWIN1021/music-player/contents/music",
+    {
+      cache: "no-store",
+      headers: {
+        Authorization: `token ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
+      },
+    }
+  );
 
-const MusicPlayer: React.FC<MusicPlayerProps> = ({ songs }) => {
-  return <MusicContainer songs={songs} />;
+  const data = await response.json();
+  return data;
+};
+
+const MusicPlayer = () => {
+  const { search } = useContext(MusicContext);
+
+  const [mode, setMode] = useState("");
+
+  const { data: songs } = useQuery({
+    queryKey: ["songs", mode],
+    queryFn: () => fetchSongs(mode),
+  });
+
+
+  // todo
+  const playList = useMemo(() => {
+    const arr: Song[] = [];
+    songs?.forEach((song: Song) => {
+      song.name.includes(search) && arr.push(song);
+    });
+    return arr;
+  }, [search, songs]);
+  
+
+  return (
+    <div className="flex flex-col overflow-hidden">
+      <PlayList songs={playList} />
+      <MusicController songs={playList} />
+    </div>
+  );
 };
 
 export default MusicPlayer;
