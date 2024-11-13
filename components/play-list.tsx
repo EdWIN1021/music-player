@@ -20,7 +20,7 @@ const PlayList: FC<PlayListProps> = ({ songs }) => {
   };
 
   return (
-    <div className="max-h-[calc(100vh-280px)] overflow-y-auto">
+    <div className="min-h-[calc(100vh-280px)] max-h-[calc(100vh-280px)] overflow-y-auto">
       <Table>
         <TableBody>
           {songs.map((song, index) => (

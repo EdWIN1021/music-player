@@ -42,7 +42,7 @@ const MusicPlayer = () => {
 
   return (
     <>
-      <Modes setMode={setMode} />
+      <Modes mode={mode} setMode={setMode} />
       <div className="flex flex-col overflow-hidden">
         <PlayList songs={playList} />
         <MusicController songs={playList} />
