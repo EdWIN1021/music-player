@@ -5,10 +5,11 @@ import PlayList from "./play-list";
 import MusicController from "./music-controller";
 import { MusicContext } from "@/music-provider";
 import { useQuery } from "@tanstack/react-query";
+import Modes from "./modes";
 
 const fetchSongs = async (mode: string) => {
   const response = await fetch(
-    "https://api.github.com/repos/EdWIN1021/music-player/contents/music",
+    `https://api.github.com/repos/EdWIN1021/music-player/contents/music/${mode}`,
     {
       cache: "no-store",
       headers: {
@@ -24,15 +25,13 @@ const fetchSongs = async (mode: string) => {
 const MusicPlayer = () => {
   const { search } = useContext(MusicContext);
 
-  const [mode, setMode] = useState("");
+  const [mode, setMode] = useState("normal");
 
   const { data: songs } = useQuery({
     queryKey: ["songs", mode],
     queryFn: () => fetchSongs(mode),
   });
 
-
-  // todo
   const playList = useMemo(() => {
     const arr: Song[] = [];
     songs?.forEach((song: Song) => {
@@ -40,13 +39,15 @@ const MusicPlayer = () => {
     });
     return arr;
   }, [search, songs]);
-  
 
   return (
-    <div className="flex flex-col overflow-hidden">
-      <PlayList songs={playList} />
-      <MusicController songs={playList} />
-    </div>
+    <>
+      <Modes setMode={setMode} />
+      <div className="flex flex-col overflow-hidden">
+        <PlayList songs={playList} />
+        <MusicController songs={playList} />
+      </div>
+    </>
   );
 };
 

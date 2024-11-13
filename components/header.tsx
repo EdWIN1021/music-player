@@ -1,8 +1,6 @@
 import React from "react";
 import Image from "next/image";
-
 import SongDownloader from "./song-downloader";
-import Modes from "@/components/modes";
 
 const header = () => {
   return (
@@ -20,7 +18,6 @@ const header = () => {
         </div>
         {process.env.NODE_ENV === "development" && <SongDownloader />}
       </div>
-      <Modes />
     </>
   );
 };
